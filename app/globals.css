@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.left-screen,
+.right-screen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 40;
+}
+
+.left-screen {
+  left: 0;
+}
+
+.right-screen {
+  right: 0;
+}
