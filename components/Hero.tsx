@@ -11,6 +11,41 @@ import Image from "next/image";
 export function Hero() {
   const [isLoading, setIsLoading] = useState(true);
   const heroRef = useRef(null);
+  const logoRef = useRef(null);
+
+  useEffect(() => {
+    const logo = logoRef.current;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const logoBounds = logo.getBoundingClientRect();
+
+      // Calculate distance from cursor to the center of the logo
+      const logoCenterX = logoBounds.left + logoBounds.width / 2;
+      const logoCenterY = logoBounds.top + logoBounds.height / 2;
+      const distanceX = e.clientX - logoCenterX;
+      const distanceY = e.clientY - logoCenterY;
+      const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
+
+      // Only apply the effect when the cursor is close to the logo
+      if (distance < 300) {
+        gsap.to(logo, {
+          x: distanceX * 0.1, // Scale the movement for a subtle effect
+          y: distanceY * 0.1,
+          duration: 0.2,
+          ease: "power3.out",
+        });
+      } else {
+        // Reset logo position when cursor moves away
+        gsap.to(logo, { x: 0, y: 0, duration: 0.5, ease: "power3.out" });
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
@@ -83,8 +118,9 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Logo */}
+      {/* Fixed Logo */}
       <div
+        ref={logoRef}
         className="fixed bottom-[-17%] right-[-13%] z-10 -rotate-30 pointer-events-none"
         style={{ opacity: 1 }}
       >
