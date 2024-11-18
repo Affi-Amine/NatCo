@@ -5,6 +5,7 @@
 html,
 body {
   overflow-x: hidden; /* Prevent horizontal scrolling */
+  background-color: #0E172A;
 }
 
 .left-screen,
