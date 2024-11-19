@@ -10,3 +10,8 @@ export const comfortaa = Comfortaa({
   subsets: ['latin'],
   variable: '--font-comfortaa',
 })
+
+export const mainFont = {
+  fontFamily: 'Main',
+  variable: '--font-main',
+};

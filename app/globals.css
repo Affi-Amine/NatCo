@@ -2,11 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Main';
+  src: url('./fonts/PPPangaia-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body {
   overflow-x: hidden; /* Prevent horizontal scrolling */
   background-color: #0E172A;
-  height: 1000vh;
 }
 
 .left-screen,
