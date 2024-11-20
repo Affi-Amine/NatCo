@@ -30,24 +30,39 @@ const Menu: React.FC = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
+  const closeMenuAndNavigate = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string) => {
+    e.preventDefault(); // Prevent immediate navigation
+    if (tl.current) {
+      tl.current.reverse();
+      tl.current.eventCallback('onReverseComplete', () => {
+        setIsMenuOpen(false); // Close the menu
+        window.location.href = path; // Navigate to the new page
+      });
+    }
+  };
+
   useIsomorphicLayoutEffect(() => {
     if (!container.current) return;
 
-    gsap.set('.menu-link-item-holder', { y: 75 });
+    gsap.set('.menu-link-item-holder', { y: 75, opacity: 0 });
 
     tl.current = gsap.timeline({ paused: true })
       .to('.menu-overlay', {
-        duration: 1.25,
+        duration: 1.25, // Duration of the overlay animation
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
         ease: 'power4.inOut',
       })
-      .to('.menu-link-item-holder', {
-        y: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: 'power4.inOut',
-        delay: -0.75,
-      });
+      .to(
+        '.menu-link-item-holder',
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.15, // Delay between each item's animation
+          ease: 'power4.out',
+        },
+        '-=0.75' // Start this animation before the overlay animation finishes
+      );
   }, []);
 
   useEffect(() => {
@@ -99,12 +114,18 @@ const Menu: React.FC = () => {
           {menuLinks.map((link, index) => (
             <div
               key={index}
-              className="relative text-black text-[5vw] uppercase leading-tight"
+              className="menu-link-item-holder relative text-black text-[5vw] uppercase leading-tight"
               style={{
                 letterSpacing: '-0.03em',
               }}
             >
-              <Link href={link.path}>{link.title}</Link>
+              <Link
+                href={link.path}
+                onClick={(e) => closeMenuAndNavigate(e, link.path)}
+                className="cursor-pointer"
+              >
+                {link.title}
+              </Link>
             </div>
           ))}
         </div>
