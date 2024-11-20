@@ -15,6 +15,33 @@ body {
   background-color: #0E172A;
 }
 
+nav,
+footer {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2em;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Circular Std", sans-serif;
+  color: #000;
+}
+
+nav {
+  top: 0;
+}
+
+footer {
+  bottom: 0;
+}
+
+.memories-page {
+  background-color: #FFFFFC;
+  height: 100vh; /* Ensures it spans the entire viewport */
+  width: 100vw;
+}
+
 .left-screen,
 .right-screen {
   position: fixed;

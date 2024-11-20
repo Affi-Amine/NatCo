@@ -15,11 +15,8 @@ const Gallery = () => {
         const gallery = galleryRef.current;
         const previewImage = previewImageRef.current;
 
-        console.log("Gallery reference:", gallery);
-        console.log("Preview Image reference:", previewImage);
 
         if (!gallery || !previewImage) {
-            console.error("Gallery or Preview Image references are null.");
             return;
         }
 
@@ -31,16 +28,12 @@ const Gallery = () => {
             img.src = `/assets/i${i % 15 + 1}.jpg`;
             img.className = styles['img-cl'];
 
-            console.log(`Creating item ${i}, Image source: ${img.src}`);
-
             item.appendChild(img);
             gallery.appendChild(item);
         }
 
         const items = gallery.querySelectorAll(`.${styles.item}`);
         const numberOfItems = items.length;
-
-        console.log("Number of gallery items:", numberOfItems);
 
         const angleIncrement = 360 / numberOfItems;
 
@@ -56,8 +49,6 @@ const Gallery = () => {
 
             const rotateX = 55 + percentY * 2;
             const rotateY = percentX * 2;
-
-            console.log(`MouseMove - rotateX: ${rotateX}, rotateY: ${rotateY}`);
 
             gsap.to(gallery, {
                 duration: 1,
@@ -77,12 +68,8 @@ const Gallery = () => {
                 transformOrigin: "50% 400px",
             });
 
-            console.log(`Item ${index} - Initial rotation set`);
-
             item.addEventListener("mouseover", () => {
                 const imgInsideItem = item.querySelector("img");
-
-                console.log(`Hovering on item ${index}, updating preview image`);
 
                 if (imgInsideItem) {
                     previewImage.src = imgInsideItem.src;
@@ -98,8 +85,6 @@ const Gallery = () => {
             });
 
             item.addEventListener("mouseout", () => {
-                console.log(`Mouse out from item ${index}, resetting preview image`);
-
                 previewImage.src = "/assets/i1.jpg";
 
                 gsap.to(item, {
@@ -120,9 +105,6 @@ const Gallery = () => {
             onRefresh: setupRotation,
             onUpdate: (self) => {
                 const rotationProgress = self.progress * 360;
-
-                console.log(`ScrollTrigger - Progress: ${self.progress}`);
-
                 items.forEach((item, index) => {
                     const currentAngle = index * angleIncrement - 90 + rotationProgress;
 
@@ -137,7 +119,6 @@ const Gallery = () => {
         });
 
         function setupRotation() {
-            console.log("Setting up rotation for all items");
             items.forEach((item, index) => {
                 const angle = index * angleIncrement - 90;
                 gsap.set(item, {
@@ -149,19 +130,17 @@ const Gallery = () => {
         }
 
         return () => {
-            console.log("Cleanup: Removing event listeners");
             document.removeEventListener("mousemove", handleMouseMove);
         };
     }, []);
 
     return (
-        <div className={styles.container}>
-            <div className={styles.previewImg}>
-                <img ref={previewImageRef} src="/assets/i1.jpg" alt="Preview" />
+            <div className={styles.container}>
+                <div className={styles.previewImg}>
+                    <img ref={previewImageRef} src="/assets/i1.jpg" alt="Preview" />
+                </div>
+                <div className={styles.gallery} ref={galleryRef}></div>
             </div>
-            <div className={styles.gallery} ref={galleryRef}></div>
-        </div>
-    );
-};
+)};
 
 export default Gallery;

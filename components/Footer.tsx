@@ -77,7 +77,7 @@ const Logos: React.FC<LogosProps> = ({ scrollProgress }) => {
                 style={{ y }}
                 className="h-full bg-black flex justify-center gap-10 items-center p-10"
             >
-                <img className="w-[150px] h-[150px]" src="/natcoLogo.png" alt="Logo" />
+                <img className="w-[300px] h-[300px]" src="/natcoLogo.png" alt="Logo" />
             </motion.div>
         </div>
     );

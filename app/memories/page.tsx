@@ -1,4 +1,5 @@
 // app/memories/page.tsx
+import Footer from '@/components/Footer';
 import Gallery from '@/components/Gallery';
 
 const MemoriesPage: React.FC = () => {
