@@ -4,8 +4,12 @@ import { useEffect } from 'react';
 import Matter, { Engine, World, Bodies, Body } from 'matter-js';
 import styles from './Vintage.module.css';
 
+import { bubblegum } from '@/lib/fonts';
+
 const VintageGallery = () => {
   useEffect(() => {
+    document.body.style.backgroundColor = '#047EF2';
+
     // Save original styles to restore later
     const originalBodyStyles = {
       overflow: document.body.style.overflow,
@@ -147,7 +151,9 @@ const VintageGallery = () => {
 
   return (
     <div className={styles.header}>
-      <h1>AIESEC Is People.</h1>
+      <h1 className={`${bubblegum.className}`}>
+        AIESEC Is People.
+      </h1>
     </div>
   );
 };
