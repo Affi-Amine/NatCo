@@ -1,12 +1,16 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { bubblegum, comfortaa } from "@/lib/fonts";
 import { Boxes } from "./ui/background-boxes";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 import { LoadingScreen } from "./LoadingScreen";
 import Image from "next/image";
+
+// Registering GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 export function Hero() {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +20,7 @@ export function Hero() {
   useEffect(() => {
     const logo = logoRef.current;
 
+    // Mouse move animation for the logo
     const handleMouseMove = (e: MouseEvent) => {
       if (!logo) return;
 
@@ -24,18 +29,13 @@ export function Hero() {
       const logoCenterY = logoBounds.top + logoBounds.height / 2;
       const distanceX = e.clientX - logoCenterX;
       const distanceY = e.clientY - logoCenterY;
-      const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
 
-      if (distance < 300) {
-        gsap.to(logo, {
-          x: distanceX * 0.1,
-          y: distanceY * 0.1,
-          duration: 0.2,
-          ease: "power3.out",
-        });
-      } else {
-        gsap.to(logo, { x: 0, y: 0, duration: 0.5, ease: "power3.out" });
-      }
+      gsap.to(logo, {
+        x: distanceX * 0.1,
+        y: distanceY * 0.1,
+        duration: 0.2,
+        ease: "power3.out",
+      });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
