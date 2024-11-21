@@ -32,7 +32,7 @@ export default function Footer(): JSX.Element {
 
     return (
         <div ref={container}>
-            <svg className="w-full mb-40" viewBox="0 0 250 90">
+            <svg className="w-full mb-20" viewBox="0 0 250 90">
                 <path
                     fill="none"
                     id="curve"
@@ -41,7 +41,7 @@ export default function Footer(): JSX.Element {
                 <text
                     className="text-[6px] uppercase"
                     style={{
-                        fill: "white",
+                        fill: "#87EEAB",
                         fontFamily: "Main, sans-serif", // Inline style
                     }}
                 >
@@ -59,7 +59,6 @@ export default function Footer(): JSX.Element {
                     ))}
                 </text>
             </svg>
-            <Logos scrollProgress={scrollYProgress} />
         </div>
     );
 }
@@ -72,10 +71,10 @@ const Logos: React.FC<LogosProps> = ({ scrollProgress }) => {
     const y = useTransform(scrollProgress, [0, 1], [-700, 0]);
 
     return (
-        <div className="h-[250px] bg-black overflow-hidden">
+        <div className="h-[250px] bg-[#0E172A] overflow-hidden">
             <motion.div
                 style={{ y }}
-                className="h-full bg-black flex justify-center gap-10 items-center p-10"
+                className="h-full  flex justify-center gap-10 items-center p-10"
             >
                 <img className="w-[300px] h-[300px]" src="/natcoLogo.png" alt="Logo" />
             </motion.div>

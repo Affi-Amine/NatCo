@@ -89,11 +89,11 @@ const Definition = () => {
     return (
         <section
             ref={sectionRef}
-            className="min-h-screen bg-[#0E172A] text-white px-8 py-16 flex flex-col justify-center items-center relative"
+            className="min-h-screen px-8 py-16 flex flex-col justify-center items-center relative"
             style={{ marginTop: "-5vh" }} // Slightly reduce overlap
         >
             <h2
-                className={`heading ${bubblegum.className} text-6xl md:text-7xl text-center mb-6`}
+                className={`heading ${bubblegum.className} text-6xl md:text-7xl text-center mb-6 text-[#FCA5A5]`}
             >
                 What is NatCo
             </h2>

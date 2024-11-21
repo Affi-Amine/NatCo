@@ -83,13 +83,13 @@ const Menu: React.FC = () => {
           <Link href="/">Natco</Link>
         </div>
         <div className="cursor-pointer" onClick={toggleMenu}>
-          <p className="uppercase text-black font-medium">Menu</p>
+          <p className="uppercase text-white font-medium">Menu</p>
         </div>
       </div>
 
       {/* Menu Overlay */}
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-[#c5fb45] flex flex-col justify-start p-8 ${
+        className={`fixed top-0 left-0 w-full h-full bg-[#FFD804] flex flex-col justify-start p-8 ${
           isMenuOpen ? 'z-20' : 'z-[-1]'
         }`}
         style={{

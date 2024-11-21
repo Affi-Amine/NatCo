@@ -1,11 +1,12 @@
 // app/memories/page.tsx
-import Footer from '@/components/Footer';
-import Gallery from '@/components/Gallery';
+
+import VintageGallery from "@/components/VintageGallery";
+
 
 const MemoriesPage: React.FC = () => {
     return (
         <div className="memories-page">
-            <Gallery />
+            <VintageGallery />
         </div>
     );
 };
