@@ -14,10 +14,6 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Upload } from 'lucide-react'
 
-import { Bubblegum_Sans } from 'next/font/google'
-
-const bubblegum = Bubblegum_Sans({ weight: '400', subsets: ['latin'] })
-
 export default function RegistrationForm() {
   const {
     register,
@@ -28,12 +24,29 @@ export default function RegistrationForm() {
     resolver: zodResolver(formSchema),
   });
 
+  const [photoFileName, setPhotoFileName] = React.useState<string>('');
+  const [cvFileName, setCvFileName] = React.useState<string>('');
+
   const onSubmit = (data: FormData) => {
     console.log(data);
   };
 
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPhotoFileName(file.name);
+    }
+  };
+
+  const handleCVChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setCvFileName(file.name);
+    }
+  };
+
   return (
-    <div className={`min-h-screen bg-pink-200 p-8 ${bubblegum.className}`}>
+    <div className="min-h-screen bg-pink-200 p-8">
       <Card className="mx-auto max-w-4xl bg-white rounded-3xl shadow-lg">
         <CardContent className="p-8">
           <h1 className="text-4xl font-bold text-center mb-8 text-pink-500">
@@ -122,7 +135,9 @@ export default function RegistrationForm() {
                 <div className="border-2 border-pink-300 border-dashed rounded-lg p-4 text-center">
                   <label htmlFor="photo-upload" className="cursor-pointer">
                     <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
-                    <p className="text-sm text-gray-500">Click to upload or drag and drop</p>
+                    <p className="text-sm text-gray-500">
+                      {photoFileName || "Click to upload or drag and drop"}
+                    </p>
                     <p className="text-xs text-gray-400">Size limit: 10 MB</p>
                   </label>
                   <input
@@ -131,6 +146,7 @@ export default function RegistrationForm() {
                     {...register("photo")}
                     accept="image/*"
                     className="hidden"
+                    onChange={handlePhotoChange}
                   />
                 </div>
               </div>
@@ -140,7 +156,9 @@ export default function RegistrationForm() {
                 <div className="border-2 border-pink-300 border-dashed rounded-lg p-4 text-center">
                   <label htmlFor="cv-upload" className="cursor-pointer">
                     <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
-                    <p className="text-sm text-gray-500">Click to upload or drag and drop</p>
+                    <p className="text-sm text-gray-500">
+                      {cvFileName || "Click to upload or drag and drop"}
+                    </p>
                     <p className="text-xs text-gray-400">Size limit: 10 MB</p>
                   </label>
                   <input
@@ -149,6 +167,7 @@ export default function RegistrationForm() {
                     {...register("cv")}
                     accept=".pdf,.doc,.docx"
                     className="hidden"
+                    onChange={handleCVChange}
                   />
                 </div>
               </div>

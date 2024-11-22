@@ -106,7 +106,7 @@ const Definition = () => {
       </h2>
       <div className="max-w-4xl text-center">
         <p
-          className={`paragraph text-lg md:text-xl lg:text-2xl mb-4 ${poppins.className}`}
+          className={`paragraph text-lg text-white md:text-xl lg:text-2xl mb-4 ${poppins.className}`}
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet nam,
           minima tempora culpa accusamus eum, quas repellendus voluptatum, odio
@@ -114,7 +114,7 @@ const Definition = () => {
           commodi possimus!
         </p>
         <p
-          className={`paragraph text-lg md:text-xl lg:text-2xl mb-4 ${poppins.className}`}
+          className={`paragraph text-lg text-white md:text-xl lg:text-2xl mb-4 ${poppins.className}`}
         >
           Hosted in the heart of Egypt, the MEA Summit is your chance to embrace
           cultural diversity and make connections that transcend borders.
