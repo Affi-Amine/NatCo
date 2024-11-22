@@ -8,6 +8,13 @@ import { Boxes } from "./ui/background-boxes";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 import { LoadingScreen } from "./LoadingScreen";
 import Image from "next/image";
+import { Poppins } from 'next/font/google';
+
+  const poppins = Poppins({
+    subsets: ['latin'],
+    weight: ['400', '500'], 
+    display: 'swap',
+  });
 
 // Registering GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -18,6 +25,7 @@ export function Hero() {
   const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+
     const logo = logoRef.current;
 
     // Mouse move animation for the logo
@@ -102,7 +110,7 @@ export function Hero() {
           />
           <p
             className={cn(
-              comfortaa.className,
+              poppins.className,
               "text-center mt-2 text-2xl md:text-3xl lg:text-4xl text-neutral-300"
             )}
           >
