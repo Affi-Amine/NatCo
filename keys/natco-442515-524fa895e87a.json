@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "natco-442515",
+  "private_key_id": "524fa895e87a865f66974e32fb0ac3b9a6b28a6d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDCAP73kNF3Avdv\nsO0fBLUTARb5s2dYo4jnT4aJzNjdq+GGpYgkMom7+PipfqGHnUd9RhoPiA8ksjoK\n4ulVD6oPL8faRJXUWf/v4MTN3fs/KOaCLNU9mWXI895w71OyOGPOrAcWCDbf1UW7\nQIRa5j7NR8rhHgYO1Vt8tqSEOv+hx8GmOEFILEqt+uPGjNgsWhy53PveAm9sjuII\nHABxH4E4ZQpRgPoNtriabKC9T/Nxd7bHMLuaa3ycRfqRRnX54qldjvCtX5eyq3OH\npW3W78eRVIBU8WeE4PuATODnqI5R/AJ7KiUFkZiTZL2PPM2DkgH4MSHzgvrUEnV9\nlneYonV9AgMBAAECggEACRHy2bAzmtTQrLAg5epabOEIKfRxSHuc0vOs3pRtLy/y\nA1GJ4+dY+SjSt1nsQ2LfDMRSQ5eg3Z5XiFrDfe6VjNA3D8VVG/B5PsXLbbSLIpDO\n9hcSgSbC03pTVARcbWCliewRCL6pkh1ufSqvBXDuTrqkiZHVxqvC8zm2x1fay71u\nM44Wa8ZygDTCoHULZg4IY0hUH/I2hj3myxXri4MmhwwHVsaAZCPmVwYJWbqlE1eD\nbYylONJ9FKFIx5UuigNpqCNOvpEy7mmdUwLo+rvjpR5y/xtu80IUTzhFYQfDwhI8\nGB8shuucZGPIgiN/unohXRIE+YnZxddy07Ply6NeIQKBgQDvrT7yfL9C/grTYcMb\niXJ7ocquP0bA/ZcV97bfngEE+rj+YCrYYtho1aiBVlacuoIfV96X8TLz7wNPBHHH\nPGWGdighed2s6j3r9xU9BOPwgPITs754pZF0vaqyoKvascmqDqWs+Pi2JqDyqdmQ\n2XgoHZHMJjv4gwDBhHwGaY8IbwKBgQDPN3If2blfXHLVzmyBjruk/py2iXukXo5v\nvcmA9KYAZuZVO7XIjG56+IlFhWMMBXKvvi/RqJOczXsIYuQ2fn7VvYuqSDub8X1C\nVQ4vrjbA7B2RmKQOZZMSWU+VGnFF2oQLXDPfJKX50a3+iXskxVmyfBglYRfxodgq\nBJKhWRae0wKBgDiYDPwPLs5v1DiTphFzhB/jVUuNz3Q0rR9XzcvBsHXvig0uwg80\nT+t5P//CVlNNyvoBsqLoJmLpNjvLTd6AyWxVrCYzc3+oFBUK0+4DoJsip4a1c61j\nUxRg0NS7EbljL75DFSXh6ECCoJCMQL5uS2wVh17QTGri7CPF189fz5FrAoGBAJmd\nOPVzqoCPQHJP/RBuh5zhQ7vuX8KSdnVP9LmspANYRRiak0CBGsX+yYTIRYz73PF7\nxGdg2U085yBob1YWoGBDi+5IbihE9d7evw2J0P1kDOeKiNRDaKwJmX2nhKGMRKdH\nSwz5VjHEx4AS2z9/LeerJxtOxzlSCbXcffcu3B4RAoGBAKtXRCy+bkF744guG9Py\ni4qhOW7uUxK5t3NVVjMsXFJ/30zsXpktzUojOjZ195YZCJr3Pcy9JuMM1GsAChWv\n7RjCCO5TG3nrdk/NeMk5n8VhuU/NbllXL/RKvzHlfpW1Radr1kNidVDE/3VFlHpI\nNaosDULaIyLynvx40Xbpq73I\n-----END PRIVATE KEY-----\n",
+  "client_email": "natco-dev@natco-442515.iam.gserviceaccount.com",
+  "client_id": "109672025271983701343",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/natco-dev%40natco-442515.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
