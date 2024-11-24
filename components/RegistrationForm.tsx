@@ -23,6 +23,7 @@ export default function RegistrationForm() {
         register,
         handleSubmit,
         control,
+        reset,
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
@@ -33,59 +34,62 @@ export default function RegistrationForm() {
 
     const onSubmit = async (data: FormData) => {
         const encodeFileToBase64 = (file: File): Promise<string> =>
-            new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    if (reader.result) {
-                        resolve(reader.result.toString().split(",")[1]); // Safely access `reader.result`
-                    } else {
-                        reject(new Error("File reading failed."));
-                    }
-                };
-                reader.onerror = (error) => reject(error);
-                reader.readAsDataURL(file);
-            });
-
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              if (reader.result) {
+                resolve(reader.result.toString().split(",")[1]); // Safely access `reader.result`
+              } else {
+                reject(new Error("File reading failed."));
+              }
+            };
+            reader.onerror = (error) => reject(error);
+            reader.readAsDataURL(file);
+          });
+      
         try {
-            const photoFileInput = document.getElementById("photo-upload") as HTMLInputElement | null;
-            const cvFileInput = document.getElementById("cv-upload") as HTMLInputElement | null;
-
-            if (!photoFileInput || !cvFileInput) {
-                throw new Error("File input elements not found.");
-            }
-
-            const photoFile = photoFileInput.files?.[0];
-            const cvFile = cvFileInput.files?.[0];
-
-            const photoBase64 = photoFile ? await encodeFileToBase64(photoFile) : null;
-            const cvBase64 = cvFile ? await encodeFileToBase64(cvFile) : null;
-
-            const response = await fetch("/api/addToSheet", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    data,
-                    photoFile: photoFile
-                        ? { name: photoFile.name, type: photoFile.type, base64: photoBase64 }
-                        : null,
-                    cvFile: cvFile
-                        ? { name: cvFile.name, type: cvFile.type, base64: cvBase64 }
-                        : null,
-                }),
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                alert(result.message); // Success message
-            } else {
-                const error = await response.json();
-                alert(`Error: ${error.error}`); // Error message
-            }
+          const photoFileInput = document.getElementById("photo-upload") as HTMLInputElement | null;
+          const cvFileInput = document.getElementById("cv-upload") as HTMLInputElement | null;
+      
+          if (!photoFileInput || !cvFileInput) {
+            throw new Error("File input elements not found.");
+          }
+      
+          const photoFile = photoFileInput.files?.[0];
+          const cvFile = cvFileInput.files?.[0];
+      
+          const photoBase64 = photoFile ? await encodeFileToBase64(photoFile) : null;
+          const cvBase64 = cvFile ? await encodeFileToBase64(cvFile) : null;
+      
+          const response = await fetch("/api/addToSheet", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              data,
+              photoFile: photoFile
+                ? { name: photoFile.name, type: photoFile.type, base64: photoBase64 }
+                : null,
+              cvFile: cvFile
+                ? { name: cvFile.name, type: cvFile.type, base64: cvBase64 }
+                : null,
+            }),
+          });
+      
+          if (response.ok) {
+            const result = await response.json();
+            alert(result.message); // Success message
+            reset(); // Reset form state
+            setPhotoFileName(""); // Clear photo filename
+            setCvFileName(""); // Clear CV filename
+          } else {
+            const error = await response.json();
+            alert(`Error: ${error.error}`); // Error message
+          }
         } catch (error) {
-            console.error("Error:", error);
-            alert("An unexpected error occurred. Please try again.");
+          console.error("Error:", error);
+          alert("An unexpected error occurred. Please try again.");
         }
-    };
+      };
 
     const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
