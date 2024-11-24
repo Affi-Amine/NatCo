@@ -8,13 +8,13 @@ import { Boxes } from "./ui/background-boxes";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 import { LoadingScreen } from "./LoadingScreen";
 import Image from "next/image";
-import { Poppins } from 'next/font/google';
+import { Poppins } from "next/font/google";
 
-  const poppins = Poppins({
-    subsets: ['latin'],
-    weight: ['400', '500'], 
-    display: 'swap',
-  });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
 
 // Registering GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -25,7 +25,6 @@ export function Hero() {
   const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-
     const logo = logoRef.current;
 
     // Mouse move animation for the logo
@@ -100,6 +99,7 @@ export function Hero() {
           <Boxes className="w-full h-full" />
         </div>
 
+        {/* Main Content */}
         <div className="relative z-20 text-center">
           <TextGenerateEffect
             className={cn(
@@ -111,11 +111,21 @@ export function Hero() {
           <p
             className={cn(
               poppins.className,
-              "text-center mt-2 text-2xl md:text-3xl lg:text-4xl text-neutral-300"
+              "text-center mt-2 text-2xl md:text-3xl lg:text-4xl text-white"
             )}
           >
             Hosted By Aiesec Carthage
           </p>
+          {/* Add PNG Slogan Below */}
+          <div className="mt-4">
+            <Image
+              src="/logo/slogan.png" // Update with the correct path
+              alt="NatCo Slogan"
+              width={300} // Adjust width as needed
+              height={100} // Adjust height as needed
+              className="mx-auto"
+            />
+          </div>
         </div>
       </div>
 

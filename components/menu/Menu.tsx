@@ -2,7 +2,12 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; 
 import gsap from 'gsap';
+import { Bubblegum_Sans } from 'next/font/google';
+
+// Load Bubblegum Sans font
+const bubblegum = Bubblegum_Sans({ weight: '400', subsets: ['latin'] });
 
 interface MenuLink {
   path: string;
@@ -78,11 +83,15 @@ const Menu: React.FC = () => {
     <div className="relative z-50" ref={container}>
       {/* Menu Bar */}
       <div className="absolute top-0 left-0 w-full flex justify-between items-center p-8 z-10">
-        <div className="font-bold text-2xl">
-          <Link href="/">Natco</Link>
+        {/* Logo */}
+        <div className="ml-4">
+          <Link href="/">
+            <Image src="/logo/logoBlanc.png" alt="Natco Logo" width={150} height={50} />
+          </Link>
         </div>
-        <div className="cursor-pointer" onClick={toggleMenu}>
-          <p className="uppercase text-white font-medium">Menu</p>
+        {/* Menu Button */}
+        <div className="cursor-pointer mr-4" onClick={toggleMenu}>
+          <p className={`uppercase text-white font-medium ${bubblegum.className}`}>Menu</p>
         </div>
       </div>
 
@@ -100,11 +109,13 @@ const Menu: React.FC = () => {
       >
         {/* Overlay Bar */}
         <div className="flex justify-between items-center">
-          <div className="font-bold text-2xl">
-            <Link href="/">Natco</Link>
+          <div className="ml-4">
+            <Link href="/">
+              <Image src="/logo/logoBlanc.png" alt="Natco Logo" width={150} height={50} />
+            </Link>
           </div>
-          <div className="cursor-pointer" onClick={toggleMenu}>
-            <p className="uppercase text-black font-medium">Close</p>
+          <div className="cursor-pointer mr-4" onClick={toggleMenu}>
+            <p className={`uppercase text-black font-medium ${bubblegum.className}`}>Close</p>
           </div>
         </div>
 
@@ -113,7 +124,7 @@ const Menu: React.FC = () => {
           {menuLinks.map((link, index) => (
             <div
               key={index}
-              className="menu-link-item-holder relative text-black text-[5vw] uppercase leading-tight"
+              className={`menu-link-item-holder relative text-black text-[5vw] uppercase leading-tight ${bubblegum.className}`}
               style={{
                 letterSpacing: '-0.03em',
               }}
