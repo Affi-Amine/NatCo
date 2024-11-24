@@ -21,7 +21,7 @@ function getErrorMessage(error: unknown): string {
 
 export async function POST(req: Request) {
     try {
-        const { data, photoFile, cvFile } = await req.json();
+        const { data, photoFile, cvFile, digitalSignature } = await req.json();
 
         // Validate required fields
         if (!data || !data.fullName || !data.email) {
@@ -45,56 +45,53 @@ export async function POST(req: Request) {
         const drive = google.drive({ version: "v3", auth });
         const sheets = google.sheets({ version: "v4", auth });
 
-        // Upload files to Google Drive
+        // Function to upload a file to Google Drive
         async function uploadFile(file: { name: string; type: string; base64: string }): Promise<string> {
-            // Convert Base64 to a Buffer
             const buffer = Buffer.from(file.base64, "base64");
-          
-            // Create a readable stream from the Buffer
             const stream = Readable.from(buffer);
-          
-            // Upload file to Google Drive
+
             const response = await drive.files.create({
-              requestBody: {
-                name: file.name,
-                parents: ["1q3crpE2wY-xWBS0R8UU49d2GI9R9nPnz"], // Replace with your folder ID
-              },
-              media: {
-                mimeType: file.type,
-                body: stream, // Use the readable stream
-              },
+                requestBody: {
+                    name: file.name,
+                    parents: ["1q3crpE2wY-xWBS0R8UU49d2GI9R9nPnz"], // Replace with your folder ID
+                },
+                media: {
+                    mimeType: file.type,
+                    body: stream,
+                },
             });
-          
+
             const fileId = response.data.id;
-          
+
             if (!fileId) {
-              throw new Error("File ID is undefined or null.");
+                throw new Error("File ID is undefined or null.");
             }
-          
+
             // Set file permissions
             await drive.permissions.create({
-              fileId,
-              requestBody: {
-                role: "reader",
-                type: "anyone",
-              },
+                fileId,
+                requestBody: {
+                    role: "reader",
+                    type: "anyone",
+                },
             });
-          
+
             // Generate public link
             const fileResponse = await drive.files.get({
-              fileId,
-              fields: "webViewLink",
+                fileId,
+                fields: "webViewLink",
             });
-          
+
             if (!fileResponse.data || !fileResponse.data.webViewLink) {
-              throw new Error("Failed to retrieve public link for uploaded file.");
+                throw new Error("Failed to retrieve public link for uploaded file.");
             }
-          
+
             return fileResponse.data.webViewLink;
-          }
+        }
 
         const photoLink = photoFile ? await uploadFile(photoFile) : "";
         const cvLink = cvFile ? await uploadFile(cvFile) : "";
+        const signatureLink = digitalSignature ? await uploadFile(digitalSignature) : "";
 
         // Prepare row data with file links
         const rowData = [
@@ -107,6 +104,7 @@ export async function POST(req: Request) {
             data.dateOfBirth || "",
             photoLink,
             cvLink,
+            signatureLink, // Add digital signature link
             data.keyArea || "",
             data.position || "",
             data.allergies || "",

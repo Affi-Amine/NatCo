@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formSchema, FormData } from './formSchema';
@@ -13,6 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Upload } from 'lucide-react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import SignaturePad from 'react-signature-canvas'
 
 import { Bubblegum_Sans } from 'next/font/google'
 
@@ -24,72 +26,81 @@ export default function RegistrationForm() {
         handleSubmit,
         control,
         reset,
+        setValue,
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
     });
 
-    const [photoFileName, setPhotoFileName] = React.useState<string>('');
-    const [cvFileName, setCvFileName] = React.useState<string>('');
+    const [photoFileName, setPhotoFileName] = useState<string>('');
+    const [cvFileName, setCvFileName] = useState<string>('');
+    const [signaturePad, setSignaturePad] = useState<SignaturePad | null>(null);
 
     const onSubmit = async (data: FormData) => {
         const encodeFileToBase64 = (file: File): Promise<string> =>
-          new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-              if (reader.result) {
-                resolve(reader.result.toString().split(",")[1]); // Safely access `reader.result`
-              } else {
-                reject(new Error("File reading failed."));
-              }
-            };
-            reader.onerror = (error) => reject(error);
-            reader.readAsDataURL(file);
-          });
-      
+            new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    if (reader.result) {
+                        resolve(reader.result.toString().split(",")[1]);
+                    } else {
+                        reject(new Error("File reading failed."));
+                    }
+                };
+                reader.onerror = (error) => reject(error);
+                reader.readAsDataURL(file);
+            });
+    
         try {
-          const photoFileInput = document.getElementById("photo-upload") as HTMLInputElement | null;
-          const cvFileInput = document.getElementById("cv-upload") as HTMLInputElement | null;
-      
-          if (!photoFileInput || !cvFileInput) {
-            throw new Error("File input elements not found.");
-          }
-      
-          const photoFile = photoFileInput.files?.[0];
-          const cvFile = cvFileInput.files?.[0];
-      
-          const photoBase64 = photoFile ? await encodeFileToBase64(photoFile) : null;
-          const cvBase64 = cvFile ? await encodeFileToBase64(cvFile) : null;
-      
-          const response = await fetch("/api/addToSheet", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              data,
-              photoFile: photoFile
-                ? { name: photoFile.name, type: photoFile.type, base64: photoBase64 }
-                : null,
-              cvFile: cvFile
-                ? { name: cvFile.name, type: cvFile.type, base64: cvBase64 }
-                : null,
-            }),
-          });
-      
-          if (response.ok) {
-            const result = await response.json();
-            alert(result.message); // Success message
-            reset(); // Reset form state
-            setPhotoFileName(""); // Clear photo filename
-            setCvFileName(""); // Clear CV filename
-          } else {
-            const error = await response.json();
-            alert(`Error: ${error.error}`); // Error message
-          }
+            const photoFileInput = document.getElementById("photo-upload") as HTMLInputElement | null;
+            const cvFileInput = document.getElementById("cv-upload") as HTMLInputElement | null;
+    
+            if (!photoFileInput || !cvFileInput) {
+                throw new Error("File input elements not found.");
+            }
+    
+            const photoFile = photoFileInput.files?.[0];
+            const cvFile = cvFileInput.files?.[0];
+            const digitalSignature = data.digitalSignature; // Signature data from SignaturePad
+    
+            const photoBase64 = photoFile ? await encodeFileToBase64(photoFile) : null;
+            const cvBase64 = cvFile ? await encodeFileToBase64(cvFile) : null;
+    
+            const response = await fetch("/api/addToSheet", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    data,
+                    photoFile: photoFile
+                        ? { name: photoFile.name, type: photoFile.type, base64: photoBase64 }
+                        : null,
+                    cvFile: cvFile
+                        ? { name: cvFile.name, type: cvFile.type, base64: cvBase64 }
+                        : null,
+                    digitalSignature: digitalSignature
+                        ? { name: "digital-signature.png", type: "image/png", base64: digitalSignature.split(",")[1] }
+                        : null,
+                }),
+            });
+    
+            if (response.ok) {
+                const result = await response.json();
+                alert(result.message);
+                reset();
+                setPhotoFileName("");
+                setCvFileName("");
+                if (signaturePad) {
+                    signaturePad.clear();
+                }
+            } else {
+                const error = await response.json();
+                alert(`Error: ${error.error}`);
+            }
         } catch (error) {
-          console.error("Error:", error);
-          alert("An unexpected error occurred. Please try again.");
+            console.error("Error:", error);
+            alert("An unexpected error occurred. Please try again.");
         }
-      };
+    };
 
     const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -105,12 +116,19 @@ export default function RegistrationForm() {
         }
     };
 
+    const handleSignatureEnd = () => {
+        if (signaturePad) {
+            const signatureData = signaturePad.toDataURL();
+            setValue('digitalSignature', signatureData);
+        }
+    };
+
     return (
-        <div className={`min-h-screen bg-pink-200 p-[100px] ${bubblegum.className}`}>
+        <div className={`min-h-screen bg-pink-200 p-8 ${bubblegum.className}`}>
             <Card className="mx-auto max-w-4xl bg-white rounded-3xl shadow-lg">
                 <CardContent className="p-8">
                     <h1 className="text-4xl font-bold text-center mb-8 text-pink-500">
-                        NatCo Adventure Form
+                        Spacetoon Adventure Form
                     </h1>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -121,6 +139,7 @@ export default function RegistrationForm() {
                                     {...register("lc")}
                                     className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
                                 />
+                                {errors.lc && <p className="text-red-500 text-sm">{errors.lc.message}</p>}
                             </div>
 
                             <div className="space-y-2">
@@ -129,6 +148,7 @@ export default function RegistrationForm() {
                                     {...register("fullName")}
                                     className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
                                 />
+                                {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName.message}</p>}
                             </div>
 
                             <div className="space-y-2">
@@ -138,6 +158,7 @@ export default function RegistrationForm() {
                                     {...register("email")}
                                     className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
                                 />
+                                {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                             </div>
 
                             <div className="flex items-center space-x-2 self-end">
@@ -163,6 +184,7 @@ export default function RegistrationForm() {
                                     {...register("cin")}
                                     className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
                                 />
+                                {errors.cin && <p className="text-red-500 text-sm">{errors.cin.message}</p>}
                             </div>
 
                             <div className="space-y-2">
@@ -171,6 +193,7 @@ export default function RegistrationForm() {
                                     {...register("phoneNumber")}
                                     className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
                                 />
+                                {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>}
                             </div>
 
                             <div className="space-y-2">
@@ -179,6 +202,7 @@ export default function RegistrationForm() {
                                     {...register("emergencyNumber")}
                                     className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
                                 />
+                                {errors.emergencyNumber && <p className="text-red-500 text-sm">{errors.emergencyNumber.message}</p>}
                             </div>
 
                             <div className="space-y-2">
@@ -188,6 +212,7 @@ export default function RegistrationForm() {
                                     {...register("dateOfBirth")}
                                     className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
                                 />
+                                {errors.dateOfBirth && <p className="text-red-500 text-sm">{errors.dateOfBirth.message}</p>}
                             </div>
 
                             <div className="space-y-2">
@@ -203,6 +228,7 @@ export default function RegistrationForm() {
                                     <input
                                         id="photo-upload"
                                         type="file"
+                                        {...register("photo")}
                                         accept="image/*"
                                         className="hidden"
                                         onChange={handlePhotoChange}
@@ -223,6 +249,7 @@ export default function RegistrationForm() {
                                     <input
                                         id="cv-upload"
                                         type="file"
+                                        {...register("cv")}
                                         accept=".pdf,.doc,.docx"
                                         className="hidden"
                                         onChange={handleCVChange}
@@ -248,6 +275,7 @@ export default function RegistrationForm() {
                                         </Select>
                                     )}
                                 />
+                                {errors.keyArea && <p className="text-red-500 text-sm">{errors.keyArea.message}</p>}
                             </div>
 
                             <div className="space-y-2">
@@ -268,6 +296,7 @@ export default function RegistrationForm() {
                                         </Select>
                                     )}
                                 />
+                                {errors.position && <p className="text-red-500 text-sm">{errors.position.message}</p>}
                             </div>
                         </div>
 
@@ -299,6 +328,8 @@ export default function RegistrationForm() {
                                     </RadioGroup>
                                 )}
                             />
+                            {errors.allergies && <p className="text-
+red-500 text-sm">{errors.allergies.message}</p>}
                         </div>
 
                         <div className="space-y-2">
@@ -337,6 +368,65 @@ export default function RegistrationForm() {
                                     </RadioGroup>
                                 )}
                             />
+                            {errors.chronicIllness && <p className="text-red-500 text-sm">{errors.chronicIllness.message}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                            <div className="flex items-center space-x-2">
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <Button variant="link" className="p-0 text-pink-500 hover:text-pink-600">
+                                            Indemnity Conditions
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent className="bg-white rounded-lg p-6 max-w-2xl">
+                                        <DialogHeader>
+                                            <DialogTitle className="text-2xl font-bold text-pink-500 mb-4">Indemnity Conditions</DialogTitle>
+                                        </DialogHeader>
+                                        <div className="text-sm text-gray-700 space-y-2">
+                                            <p>As a Participant of the Conference, I hereby confirm that I shall act wisely and responsibly at all times during the conference and not harm the reputation or brand of AIESEC.</p>
+                                            {/* Add the rest of the indemnity text here */}
+                                        </div>
+                                    </DialogContent>
+                                </Dialog>
+                                <Controller
+                                    name="agreeToIndemnity"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                            className="border-2 border-pink-300 data-[state=checked]:bg-pink-500"
+                                        />
+                                    )}
+                                />
+                                <Label className="text-black font-medium">I agree to the Indemnity Conditions</Label>
+                            </div>
+                            {errors.agreeToIndemnity && <p className="text-sm text-red-500">{errors.agreeToIndemnity.message}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-black font-medium">Digital Signature</Label>
+                            <div className="border-2 border-pink-300 rounded-lg p-4">
+                                <SignaturePad
+                                    ref={(ref) => setSignaturePad(ref)}
+                                    canvasProps={{
+                                        className: "w-full h-40 border border-gray-300 rounded"
+                                    }}
+                                    onEnd={handleSignatureEnd}
+                                />
+                                <div className="flex justify-end mt-2">
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        className="text-pink-500 border-pink-500 hover:bg-pink-50"
+                                        onClick={() => signaturePad?.clear()}
+                                    >
+                                        Clear Signature
+                                    </Button>
+                                </div>
+                            </div>
+                            {errors.digitalSignature && <p className="text-sm text-red-500">{errors.digitalSignature.message}</p>}
                         </div>
 
                         <div className="space-y-2">
@@ -345,6 +435,7 @@ export default function RegistrationForm() {
                                 {...register("expectations")}
                                 className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 min-h-[100px]"
                             />
+                            {errors.expectations && <p className="text-sm text-red-500">{errors.expectations.message}</p>}
                         </div>
 
                         <Button

@@ -17,6 +17,10 @@ export const formSchema = z.object({
   allergiesDetails: z.string().optional(),
   chronicIllness: z.enum(["yes", "no"]),
   expectations: z.string().min(1, { message: "Expectations are required" }),
+  agreeToIndemnity: z.boolean().refine(val => val === true, {
+    message: "You must agree to the Indemnity Conditions"
+  }),
+  digitalSignature: z.string().min(1, { message: "Digital signature is required" }),
 });
 
 export type FormData = z.infer<typeof formSchema>;
