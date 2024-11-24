@@ -2,6 +2,7 @@
 import Definition from "@/components/Definition";
 import Footer from "@/components/Footer";
 import { Hero } from "@/components/Hero";
+import ImageTransition from "@/components/ImageTransition";
 import ImageTransitionSection from "@/components/ImageTransition";
 import Slider from "@/components/Slider";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
@@ -59,7 +60,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      
+      <ImageTransition />
       <Definition />
       <Slider />
       <AnimatedTestimonials testimonials={ocTeam} autoplay={true} />

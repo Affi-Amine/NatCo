@@ -106,11 +106,11 @@ export default function RegistrationForm() {
     };
 
     return (
-        <div className={`min-h-screen bg-pink-200 p-8 ${bubblegum.className}`}>
+        <div className={`min-h-screen bg-pink-200 p-[100px] ${bubblegum.className}`}>
             <Card className="mx-auto max-w-4xl bg-white rounded-3xl shadow-lg">
                 <CardContent className="p-8">
                     <h1 className="text-4xl font-bold text-center mb-8 text-pink-500">
-                        Spacetoon Adventure Form
+                        NatCo Adventure Form
                     </h1>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

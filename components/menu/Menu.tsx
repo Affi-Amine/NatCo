@@ -12,9 +12,8 @@ interface MenuLink {
 const menuLinks: MenuLink[] = [
   { path: '/', title: 'Home' },
   { path: '/memories', title: 'Memories' },
-  { path: '/about', title: 'About' },
-  { path: '/contact', title: 'Contact' },
-  { path: '/lab', title: 'Lab' },
+  { path: '/registration', title: 'Registration' },
+  { path: '/partner', title: 'Become A Partner' },
 ];
 
 // Custom useIsomorphicLayoutEffect
