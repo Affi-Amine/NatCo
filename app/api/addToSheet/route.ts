@@ -1,23 +1,11 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import path from "path";
-import fs from "fs";
 import { Readable } from "stream";
 
 const SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
 ];
-const SPREADSHEET_ID = "1ogSwiJsdgy9vl1Mqdw5_u9RM-K3-HnDIqw9BbpvOF2U"; // Replace with your actual Google Sheet ID
-const SHEET_NAME = "Feuille 1"; // Replace with the exact sheet name (case-sensitive)
-
-// Helper function to extract error messages
-function getErrorMessage(error: unknown): string {
-    if (error instanceof Error) {
-        return error.message;
-    }
-    return "An unknown error occurred";
-}
 
 export async function POST(req: Request) {
     try {
@@ -31,14 +19,11 @@ export async function POST(req: Request) {
             );
         }
 
-        // Authenticate with Google APIs
-        const keyFilePath = path.join(process.cwd(), "keys", "natco-442515-524fa895e87a.json");
-        const keyFile = JSON.parse(fs.readFileSync(keyFilePath, "utf8"));
-
+        // Authenticate using environment variables
         const auth = new google.auth.JWT(
-            keyFile.client_email,
+            process.env.GOOGLE_CLIENT_EMAIL, // From .env
             undefined,
-            keyFile.private_key,
+            process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"), // Replace escaped newlines
             SCOPES
         );
 
@@ -52,11 +37,11 @@ export async function POST(req: Request) {
 
             const response = await drive.files.create({
                 requestBody: {
-                    name: file.name,
-                    parents: ["1q3crpE2wY-xWBS0R8UU49d2GI9R9nPnz"], // Replace with your folder ID
+                    name: file.name ?? "Untitled", // Provide a default value if `file.name` is undefined
+                    parents: [process.env.GOOGLE_DRIVE_FOLDER_ID!], // Assert it won't be undefined
                 },
                 media: {
-                    mimeType: file.type,
+                    mimeType: file.type ?? "application/octet-stream", // Provide a default MIME type
                     body: stream,
                 },
             });
@@ -115,8 +100,8 @@ export async function POST(req: Request) {
 
         // Append data to Google Sheet
         await sheets.spreadsheets.values.append({
-            spreadsheetId: SPREADSHEET_ID,
-            range: `${SHEET_NAME}!A1`,
+            spreadsheetId: process.env.GOOGLE_SPREADSHEET_ID, // Use spreadsheet ID from .env
+            range: `${process.env.GOOGLE_SHEET_NAME}!A1`, // Use sheet name from .env
             valueInputOption: "USER_ENTERED",
             requestBody: {
                 values: [rowData],

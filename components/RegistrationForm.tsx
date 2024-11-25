@@ -50,22 +50,22 @@ export default function RegistrationForm() {
                 reader.onerror = (error) => reject(error);
                 reader.readAsDataURL(file);
             });
-    
+
         try {
             const photoFileInput = document.getElementById("photo-upload") as HTMLInputElement | null;
             const cvFileInput = document.getElementById("cv-upload") as HTMLInputElement | null;
-    
+
             if (!photoFileInput || !cvFileInput) {
                 throw new Error("File input elements not found.");
             }
-    
+
             const photoFile = photoFileInput.files?.[0];
             const cvFile = cvFileInput.files?.[0];
             const digitalSignature = data.digitalSignature; // Signature data from SignaturePad
-    
+
             const photoBase64 = photoFile ? await encodeFileToBase64(photoFile) : null;
             const cvBase64 = cvFile ? await encodeFileToBase64(cvFile) : null;
-    
+
             const response = await fetch("/api/addToSheet", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -82,7 +82,7 @@ export default function RegistrationForm() {
                         : null,
                 }),
             });
-    
+
             if (response.ok) {
                 const result = await response.json();
                 alert(result.message);
@@ -124,11 +124,11 @@ export default function RegistrationForm() {
     };
 
     return (
-        <div className={`min-h-screen bg-pink-200 p-8 ${bubblegum.className}`}>
+        <div className={`min-h-screen bg-pink-200 p-[100px] ${bubblegum.className}`}>
             <Card className="mx-auto max-w-4xl bg-white rounded-3xl shadow-lg">
                 <CardContent className="p-8">
                     <h1 className="text-4xl font-bold text-center mb-8 text-pink-500">
-                        Spacetoon Adventure Form
+                        NatCo Adventure Form
                     </h1>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -385,7 +385,38 @@ red-500 text-sm">{errors.allergies.message}</p>}
                                         </DialogHeader>
                                         <div className="text-sm text-gray-700 space-y-2">
                                             <p>As a Participant of the Conference, I hereby confirm that I shall act wisely and responsibly at all times during the conference and not harm the reputation or brand of AIESEC.</p>
-                                            {/* Add the rest of the indemnity text here */}
+                                            <ul className="list-disc pl-6 space-y-2">
+                                                <li>
+                                                    I will comply with all applicable rules and regulations and other reasonable directions given by AIESEC or others.
+                                                </li>
+                                                <li>
+                                                    In case anything is broken at the room, reception, or bar... according to the person will be responsible for paying the damages.
+                                                </li>
+                                                <li>
+                                                    I agree to follow further instructions announced by AIESEC or the hotel security staff regarding my presence in the hotel and the safety of my stay.
+                                                </li>
+                                                <li>
+                                                    I hereby declare that if, during the period specified above, any of my actions directly or indirectly cause any kind of damage, or injury to an individual or if I participate in any illegal activities, I shall be personally responsible and liable for such actions and consequences.
+                                                </li>
+                                                <li>
+                                                    I ASSUME FULL RESPONSIBILITY for understanding and following the rules and security practices associated with NatCo 2K24 and for my safety.
+                                                </li>
+                                                <li>
+                                                    I agree on respecting Human Dignity and integrity.
+                                                </li>
+                                                <li>
+                                                    I agree that I belong to an entity that condemns sexual exploitation, abuse, and discrimination in all its forms.
+                                                </li>
+                                                <li>
+                                                    I assume all the responsibility if anybody raises an ethical complaint toward me, and I will follow all the procedures set by the (sub)committee responsible (Ethics/Harassment Prevention).
+                                                </li>
+                                                <li>
+                                                    I agree on reporting to the responsible (sub)committee (Ethics/Harassment Prevention) if I will ever witness or become subjected to any unwanted sexual behavior(s) inside the conference.
+                                                </li>
+                                            </ul>
+                                            <p className="font-bold mt-4">
+                                                I ACKNOWLEDGE that I have read and understood this agreement, that I appreciate and accept these risks associated with NatCo 2K24, and that I have executed this agreement voluntarily.
+                                            </p>
                                         </div>
                                     </DialogContent>
                                 </Dialog>
