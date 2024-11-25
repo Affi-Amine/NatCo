@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef } from "react";
-import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import { useScroll } from "framer-motion";
 
 
 export default function Footer(): JSX.Element {

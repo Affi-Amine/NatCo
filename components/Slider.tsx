@@ -1,7 +1,9 @@
-'use client'
+'use client';
+
 import { useEffect } from "react";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+import Image from "next/image";
 import styles from "./Slider.module.css";
 import { bubblegum } from "@/lib/fonts";
 
@@ -101,25 +103,49 @@ export default function Slider(): JSX.Element {
             <div className={styles.container}>
                 <div className={styles.slider}>
                     <div className={styles.card}>
-                        <img src="/assets/i4.jpg" alt="Image 4" />
+                        <Image
+                            src="/assets/i4.jpg"
+                            alt="Image 4"
+                            layout="fill"
+                            objectFit="cover"
+                            quality={100} // Optimized image quality
+                        />
                         <div className={styles.copy}>
                             <h1>OC Party</h1>
                         </div>
                     </div>
                     <div className={styles.card}>
-                        <img src="/slider/mcpElection.png" alt="Image 1" />
+                        <Image
+                            src="/slider/mcpElection.png"
+                            alt="Image 1"
+                            layout="fill"
+                            objectFit="cover"
+                            quality={100}
+                        />
                         <div className={styles.copy}>
                             <h1>MCP Election</h1>
                         </div>
                     </div>
                     <div className={styles.card}>
-                        <img src="/slider/careerFair.png" alt="Image 2" />
+                        <Image
+                            src="/slider/careerFair.png"
+                            alt="Image 2"
+                            layout="fill"
+                            objectFit="cover"
+                            quality={100}
+                        />
                         <div className={styles.copy}>
                             <h1>Career Fair</h1>
                         </div>
                     </div>
                     <div className={styles.card}>
-                        <img src="/slider/galaNight.png" alt="Image 3" />
+                        <Image
+                            src="/slider/galaNight.png"
+                            alt="Image 3"
+                            layout="fill"
+                            objectFit="cover"
+                            quality={100}
+                        />
                         <div className={styles.copy}>
                             <h1>Gala Night</h1>
                         </div>

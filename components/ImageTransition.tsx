@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,14 +35,13 @@ const ImageTransition = () => {
             }}
         >
             {/* Parallax Image */}
-            <img
+            <Image
                 ref={imageRef}
-                src="tulds1.jpg"
+                src="/tulds1.jpg" // Make sure the image path starts with '/' for Next.js public assets
                 alt="Dynamic Parallax"
+                layout="fill" // This ensures the image covers the container
+                objectFit="cover" // Ensures the image fits the container
                 style={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "cover",
                     position: "absolute", // Required for parallax effect
                     top: 0,
                     left: 0,

@@ -5,7 +5,6 @@ import { Hero } from "@/components/Hero";
 import ImageTransition from "@/components/ImageTransition";
 import Slider from "@/components/Slider";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
-import { div } from "framer-motion/client";
 
 
 
@@ -57,13 +56,13 @@ const ocTeam = [
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Hero />
       <ImageTransition />
       <Definition />
       <Slider />
       <AnimatedTestimonials testimonials={ocTeam} autoplay={true} />
       <Footer />
-    </div>
+    </>
   );
 }
