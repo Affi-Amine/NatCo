@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
-import { bubblegum, comfortaa } from "@/lib/fonts";
+import { bubblegum } from "@/lib/fonts";
 import { Boxes } from "./ui/background-boxes";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 import { LoadingScreen } from "./LoadingScreen";

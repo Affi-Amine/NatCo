@@ -3,7 +3,6 @@
 import React, { useEffect, useRef } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 
-import { bubblegum } from '@/lib/fonts';
 
 export default function Footer(): JSX.Element {
     const container = useRef<HTMLDivElement | null>(null);
@@ -54,7 +53,7 @@ export default function Footer(): JSX.Element {
                             startOffset={`${i * 40}%`}
                             href="#curve"
                         >
-                            Can't wait for you to join us!
+                            Can&apos;t wait for you to join us!
                         </textPath>
                     ))}
                 </text>
@@ -62,22 +61,3 @@ export default function Footer(): JSX.Element {
         </div>
     );
 }
-
-interface LogosProps {
-    scrollProgress: MotionValue<number>;
-}
-
-const Logos: React.FC<LogosProps> = ({ scrollProgress }) => {
-    const y = useTransform(scrollProgress, [0, 1], [-700, 0]);
-
-    return (
-        <div className="h-[250px] bg-[#0E172A] overflow-hidden">
-            <motion.div
-                style={{ y }}
-                className="h-full  flex justify-center gap-10 items-center p-10"
-            >
-                <img className="w-[300px] h-[300px]" src="/natcoLogo.png" alt="Logo" />
-            </motion.div>
-        </div>
-    );
-};

@@ -33,7 +33,7 @@ const VintageGallery = () => {
     document.documentElement.style.height = '100vh';
 
     let engine: Matter.Engine;
-    let items: Item[] = [];
+    const items: Item[] = [];
     let lastMouseX = -1;
     let lastMouseY = -1;
 

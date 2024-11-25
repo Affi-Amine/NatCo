@@ -96,7 +96,7 @@ export default function Slider(): JSX.Element {
             <h2
                 className={`heading ${bubblegum.className} text-6xl md:text-7xl text-center mb-12 text-[#C3B5FD]`}
             >
-                What You'll Experience
+                What You&apos;ll Experience
             </h2>
             <div className={styles.container}>
                 <div className={styles.slider}>
