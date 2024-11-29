@@ -1,11 +1,17 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 import { Readable } from "stream";
+import { Pool } from "pg";
 
 const SCOPES = [
   "https://www.googleapis.com/auth/spreadsheets",
   "https://www.googleapis.com/auth/drive.file",
 ];
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_SSL === "true" ? { rejectUnauthorized: false } : false,
+});
 
 /**
  * Cleans and processes the private key from the environment variable.
@@ -112,6 +118,7 @@ export async function POST(req: Request) {
       data.expectations || "",
     ];
 
+    // Insert into Google Sheets
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SPREADSHEET_ID!,
       range: `${process.env.GOOGLE_SHEET_NAME || "Sheet1"}!A1`,
@@ -121,7 +128,26 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ message: "Data and files uploaded successfully!" });
+    // Insert into PostgreSQL
+    const client = await pool.connect();
+    try {
+      await client.query(
+        `
+        INSERT INTO delegates (
+          lc, full_name, email, cin, phone_number, emergency_number,
+          date_of_birth, photo_link, cv_link, signature_link, key_area,
+          position, allergies, allergies_details, chronic_illness, expectations
+        ) VALUES (
+          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16
+        )
+        `,
+        rowData
+      );
+    } finally {
+      client.release();
+    }
+
+    return NextResponse.json({ message: "Data successfully uploaded to Google Sheets and PostgreSQL!" });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
     console.error("Error:", errorMessage);
