@@ -481,4 +481,3 @@ red-500 text-sm">{errors.allergies.message}</p>}
         </div>
     );
 }
-

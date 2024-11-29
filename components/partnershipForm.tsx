@@ -29,7 +29,7 @@ export default function PartnershipForm() {
         console.log("Submitting form data:", data);
     
         try {
-            const response = await fetch("/api/partnerAddToSheet/route.ts", {
+            const response = await fetch("/api/partnerAddToSheet", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ data }),
