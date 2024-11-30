@@ -37,7 +37,7 @@ const ImageTransition = () => {
             {/* Parallax Image */}
             <Image
                 ref={imageRef}
-                src="/tulds1.jpg" // Make sure the image path starts with '/' for Next.js public assets
+                src="/optimImages/tulds1-min.jpg" // Make sure the image path starts with '/' for Next.js public assets
                 alt="Dynamic Parallax"
                 layout="fill" // This ensures the image covers the container
                 objectFit="cover" // Ensures the image fits the container

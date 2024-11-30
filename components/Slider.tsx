@@ -116,7 +116,7 @@ export default function Slider(): JSX.Element {
                     </div>
                     <div className={styles.card}>
                         <Image
-                            src="/slider/mcpElection.png"
+                            src="/optimImages/mcpElection.png"
                             alt="Image 1"
                             layout="fill"
                             objectFit="cover"
@@ -128,7 +128,7 @@ export default function Slider(): JSX.Element {
                     </div>
                     <div className={styles.card}>
                         <Image
-                            src="/slider/careerFair.png"
+                            src="/optimImages/careerFair.png"
                             alt="Image 2"
                             layout="fill"
                             objectFit="cover"
@@ -140,7 +140,7 @@ export default function Slider(): JSX.Element {
                     </div>
                     <div className={styles.card}>
                         <Image
-                            src="/slider/galaNight.png"
+                            src="/optimImages/galaNight.png"
                             alt="Image 3"
                             layout="fill"
                             objectFit="cover"

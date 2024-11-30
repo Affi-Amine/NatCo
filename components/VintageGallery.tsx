@@ -51,7 +51,7 @@ const VintageGallery = () => {
       for (let i = 0; i < 12; i++) {
         const x = Math.random() * window.innerWidth;
         const y = Math.random() * window.innerHeight;
-        items.push(new Item(x, y, `/assets/i${i + 1}.jpg`));
+        items.push(new Item(x, y, `/optMemories/i${i + 1}.jpg`));
       }
 
       const draw = () => {
