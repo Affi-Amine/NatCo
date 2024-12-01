@@ -94,45 +94,45 @@ export function Hero() {
         ref={heroRef}
         className="relative min-h-screen w-full bg-slate-900 flex flex-col items-center justify-center overflow-hidden"
       >
-        {/* Contain the grid strictly within the hero */}
+        {/* Background Boxes */}
         <div className="absolute inset-0">
           <Boxes className="w-full h-full" />
         </div>
 
         {/* Main Content */}
-        <div className="relative z-20 text-center">
+        <div className="relative z-20 text-center px-4 md:px-8">
           <TextGenerateEffect
             className={cn(
               bubblegum.className,
-              "text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white"
+              "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white"
             )}
             words="Welcome to NatCo 2K24"
           />
           <p
             className={cn(
               poppins.className,
-              "text-center mt-2 text-2xl md:text-3xl lg:text-4xl text-white"
+              "text-center mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-white"
             )}
           >
             Hosted By Aiesec Carthage
           </p>
-          {/* Add PNG Slogan Below */}
+          {/* PNG Slogan */}
           <div className="mt-4">
             <Image
-              src="/logo/slogan.png" // Update with the correct path
+              src="/logo/slogan.png"
               alt="NatCo Slogan"
-              width={300} // Adjust width as needed
-              height={100} // Adjust height as needed
-              className="mx-auto"
+              width={250}
+              height={80}
+              className="mx-auto md:w-[300px] md:h-[100px] lg:w-[400px] lg:h-[120px]"
             />
           </div>
         </div>
       </div>
 
+      {/* SVG Logo (Hidden on tablet and mobile) */}
       <div
         ref={logoRef}
-        className="fixed bottom-[-17%] right-[-13%] z-10 -rotate-30 pointer-events-none"
-        style={{ opacity: 1 }}
+        className="hidden lg:block fixed bottom-[-17%] right-[-13%] z-10 -rotate-30 pointer-events-none"
       >
         <Image
           src="/svg-carthage.svg"

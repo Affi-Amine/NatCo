@@ -45,7 +45,7 @@ export const AnimatedTestimonials = ({
     };
 
     return (
-        <div className="mx-10 my-10 pt-40">
+        <div className="mx-10 my-10 lg:pt-40">
             {/* Text Header */}
             <h2
                 className={`${bubblegum.className} text-6xl md:text-7xl text-center mb-6`}

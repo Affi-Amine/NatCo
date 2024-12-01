@@ -16,9 +16,9 @@ interface MenuLink {
 
 const menuLinks: MenuLink[] = [
   { path: '/', title: 'Home' },
-  { path: '/memories', title: 'Memories' },
   { path: '/registration', title: 'Registration' },
   { path: '/partner', title: 'Become A Partner' },
+  // Exclude "Memories" dynamically for mobile/tablet (handled below)
 ];
 
 // Custom useIsomorphicLayoutEffect
@@ -79,6 +79,8 @@ const Menu: React.FC = () => {
     }
   }, [isMenuOpen]);
 
+  const filteredMenuLinks = window.innerWidth > 768 ? menuLinks.concat({ path: '/memories', title: 'Memories' }) : menuLinks;
+
   return (
     <div className="relative z-50" ref={container}>
       {/* Menu Bar */}
@@ -121,10 +123,10 @@ const Menu: React.FC = () => {
 
         {/* Menu Links */}
         <div className="flex flex-col items-center gap-4 mt-20">
-          {menuLinks.map((link, index) => (
+          {filteredMenuLinks.map((link, index) => (
             <div
               key={index}
-              className={`menu-link-item-holder relative text-black text-[5vw] uppercase leading-tight ${bubblegum.className}`}
+              className={`menu-link-item-holder relative text-black text-[6vw] md:text-[4vw] uppercase leading-tight ${bubblegum.className}`}
               style={{
                 letterSpacing: '-0.03em',
               }}

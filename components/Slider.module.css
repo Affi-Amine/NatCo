@@ -1,68 +1,131 @@
 /* Heading Styles */
 .heading {
-    text-align: center;
-    font-family: "PP Editorial Old", serif;
-    font-size: 3rem; /* Adjust as needed */
-    font-weight: 300;
-    text-transform: uppercase;
-    color: white;
-  }
-  
-  /* Slider Container Styles */
-  .container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: transparent;
-    margin-top: -10rem;
-    margin-bottom: 6rem;
-  }
-  
-  .slider {
-    position: absolute;
-    top: 15vh;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    perspective: 288px;
-    perspective-origin: 50% 100%;
-  }
-  
+  text-align: center;
+  font-family: "PP Editorial Old", serif;
+  font-size: 3rem; /* Desktop */
+  font-weight: 300;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+/* Slider Container Styles */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
+  margin-top: -5rem;
+  margin-bottom: 4rem;
+}
+
+/* Slider */
+.slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: 288px;
+  perspective-origin: 50% 100%;
+  margin-top: 5%; /* Adjust the spacing between the slider and the title */
+}
+
+/* Card Styles */
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%; /* Responsive width */
+  height: calc(80vw * 0.6); /* Dynamic height based on width (aspect ratio 4:3) */
+  max-width: 600px; /* Maximum width for larger screens */
+  max-height: 450px; /* Maximum height for larger screens */
+  border-radius: 10px;
+  overflow: hidden;
+  transform: translate3d(-50%, -50%, 0);
+  background: #0e172a;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Image inside the Card */
+.card img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.75;
+}
+
+/* Copy Styles */
+.copy {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.copy h1 {
+  text-align: center;
+  font-family: "PP Editorial Old", serif;
+  font-size: 4vw; /* Dynamic scaling for all screens */
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #dfe1c8;
+}
+
+.copy h1 span {
+  display: inline-block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
   .card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 50%;
-    height: 500px;
-    border-radius: 10px;
-    overflow: hidden;
-    transform: translate3d(-50%, -50%, 0);
-    background: #0E172A;
+    width: 90%; /* Adjust card size for tablets */
+    height: calc(90vw * 0.6); /* Maintain aspect ratio */
+    max-width: 500px; /* Smaller max width for tablets */
+    max-height: 375px; /* Smaller max height for tablets */
   }
-  
-  .card img {
-    position: absolute;
-    opacity: 0.75;
+
+  .slider {
+    margin-top: 3%; /* Reduce spacing for tablets */
   }
-  
-  .copy {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-  }
-  
+
   .copy h1 {
-    text-align: center;
-    font-family: "PP Editorial Old", serif;
-    font-size: 6vw;
-    font-weight: 300;
-    text-transform: uppercase;
-    color: #dfe1c8;
+    font-size: 5vw; /* Adjust heading font size */
   }
-  
-  .copy h1 span {
-    display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 95%; /* Take more space on smaller screens */
+    height: calc(95vw * 0.6); /* Maintain aspect ratio */
+    max-width: 400px; /* Limit max width on mobile */
+    max-height: 300px; /* Limit max height on mobile */
   }
+
+  .slider {
+    margin-top: 2%; /* Further reduce spacing for mobile */
+  }
+
+  .copy h1 {
+    font-size: 6vw; /* Adjust font size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%; /* Full width for very small screens */
+    height: calc(100vw * 0.6); /* Maintain aspect ratio */
+    max-width: 350px; /* Maximum size for small devices */
+    max-height: 262.5px; /* Limit height for small devices */
+  }
+
+  .slider {
+    margin-top: 1%; /* Minimal spacing for very small screens */
+  }
+
+  .copy h1 {
+    font-size: 7vw; /* Larger font size for readability */
+  }
+}

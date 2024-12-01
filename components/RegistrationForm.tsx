@@ -124,7 +124,7 @@ export default function RegistrationForm() {
     };
 
     return (
-        <div className={`min-h-screen bg-pink-200 p-[100px] ${bubblegum.className}`}>
+        <div className={`min-h-screen bg-pink-200 pt-[120px] pb-8 px-4 sm:px-8 lg:px-16 ${bubblegum.className}`}>
             <Card className="mx-auto max-w-4xl bg-white rounded-3xl shadow-lg">
                 <CardContent className="p-8">
                     <h1 className="text-4xl font-bold text-center mb-8 text-pink-500">

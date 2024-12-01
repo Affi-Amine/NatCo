@@ -51,13 +51,13 @@ export default function PartnershipForm() {
     };
 
     return (
-        <div className={`min-h-screen bg-purple-200 p-[100px] ${bubblegum.className}`}>
-            <Card className="mx-auto max-w-4xl bg-white rounded-3xl shadow-lg">
-                <CardContent className="p-8">
-                    <h1 className="text-4xl font-bold text-center mb-8 text-purple-500">
+        <div className={`min-h-screen bg-purple-200 pt-[120px] pb-8 px-4 sm:px-8 lg:px-20  ${bubblegum.className}`}>
+            <Card className="mx-auto w-full max-w-lg sm:max-w-xl lg:max-w-4xl bg-white rounded-3xl shadow-lg">
+                <CardContent className="p-6 sm:p-8 lg:p-12">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 lg:mb-12 text-purple-500">
                         NatCo 2K24 Partnership Form
                     </h1>
-
+    
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                             <div className="space-y-2">
@@ -69,7 +69,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.companyName && <p className="text-red-500 text-sm">{errors.companyName.message}</p>}
                             </div>
-
+    
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Company Field</Label>
                                 <Input
@@ -79,7 +79,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.companyField && <p className="text-red-500 text-sm">{errors.companyField.message}</p>}
                             </div>
-
+    
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Company Size</Label>
                                 <Controller
@@ -92,7 +92,9 @@ export default function PartnershipForm() {
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"].map((size) => (
-                                                    <SelectItem key={size} value={size}>{size} employees</SelectItem>
+                                                    <SelectItem key={size} value={size}>
+                                                        {size} employees
+                                                    </SelectItem>
                                                 ))}
                                             </SelectContent>
                                         </Select>
@@ -100,7 +102,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.companySize && <p className="text-red-500 text-sm">{errors.companySize.message}</p>}
                             </div>
-
+    
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Company LinkedIn Profile</Label>
                                 <Input
@@ -110,7 +112,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.linkedinProfile && <p className="text-red-500 text-sm">{errors.linkedinProfile.message}</p>}
                             </div>
-
+    
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Company Website</Label>
                                 <Input
@@ -120,9 +122,11 @@ export default function PartnershipForm() {
                                 />
                                 {errors.website && <p className="text-red-500 text-sm">{errors.website.message}</p>}
                             </div>
-
+    
                             <div className="space-y-2 md:col-span-2">
-                                <Label className="text-black font-medium">Why is your company interested in partnering with NatCo 2K24 ?</Label>
+                                <Label className="text-black font-medium">
+                                    Why is your company interested in partnering with NatCo 2K24?
+                                </Label>
                                 <Textarea
                                     {...register("partnershipReason")}
                                     placeholder="Let us know more"
@@ -130,7 +134,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.partnershipReason && <p className="text-red-500 text-sm">{errors.partnershipReason.message}</p>}
                             </div>
-
+    
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Contact Person Name</Label>
                                 <Input
@@ -140,7 +144,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.contactName && <p className="text-red-500 text-sm">{errors.contactName.message}</p>}
                             </div>
-
+    
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Contact Person Email</Label>
                                 <Input
@@ -150,7 +154,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.contactEmail && <p className="text-red-500 text-sm">{errors.contactEmail.message}</p>}
                             </div>
-
+    
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Contact Person Mobile Number</Label>
                                 <Input
@@ -160,7 +164,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.contactPhone && <p className="text-red-500 text-sm">{errors.contactPhone.message}</p>}
                             </div>
-
+    
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Contact Person Position in the organization</Label>
                                 <Input
@@ -171,10 +175,10 @@ export default function PartnershipForm() {
                                 {errors.contactPosition && <p className="text-red-500 text-sm">{errors.contactPosition.message}</p>}
                             </div>
                         </div>
-
+    
                         <Button
                             type="submit"
-                            className="w-full bg-black text-white"
+                            className="w-full bg-black hover:bg-purple-600 text-white rounded-lg py-2 sm:py-3 lg:py-4 text-base sm:text-lg lg:text-xl"
                         >
                             Submit Partnership Request
                         </Button>
