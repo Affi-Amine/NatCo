@@ -40,15 +40,17 @@ const ImageTransition = () => {
         ref={imageRef}
         src="/optimImages/tulds1-min.jpg" // Ensure correct image path
         alt="Dynamic Parallax"
-        layout="fill" // Ensures the image covers the container
-        objectFit="cover" // Ensures the image fits the container
+        fill // Replaces layout="fill"
         style={{
+          objectFit: "cover", // Replaces objectFit="cover"
           position: "absolute", // Required for parallax effect
           top: 0,
           left: 0,
           willChange: "transform", // Optimize performance for transforms
         }}
+        quality={100} // Optional: to control image quality
       />
+
     </section>
   );
 };

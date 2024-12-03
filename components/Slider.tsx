@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
-import Image from "next/image";
+import Image from "next/image"; // Import next/image for optimized images
 import styles from "./Slider.module.css";
 import { bubblegum } from "@/lib/fonts";
 
@@ -106,8 +106,9 @@ export default function Slider(): JSX.Element {
                         <Image
                             src="/assets/i4.jpg"
                             alt="Image 4"
-                            layout="fill"
-                            objectFit="cover"
+                            width={500} // Set the width
+                            height={300} // Set the height
+                            style={{ objectFit: "cover" }}
                             quality={100} // Optimized image quality
                         />
                         <div className={styles.copy}>
@@ -118,8 +119,9 @@ export default function Slider(): JSX.Element {
                         <Image
                             src="/optimImages/mcpElection.png"
                             alt="Image 1"
-                            layout="fill"
-                            objectFit="cover"
+                            width={500} // Set the width
+                            height={300} // Set the height
+                            style={{ objectFit: "cover" }}
                             quality={100}
                         />
                         <div className={styles.copy}>
@@ -130,8 +132,9 @@ export default function Slider(): JSX.Element {
                         <Image
                             src="/optimImages/careerFair.png"
                             alt="Image 2"
-                            layout="fill"
-                            objectFit="cover"
+                            width={500} // Set the width
+                            height={300} // Set the height
+                            style={{ objectFit: "cover" }}
                             quality={100}
                         />
                         <div className={styles.copy}>
@@ -142,8 +145,9 @@ export default function Slider(): JSX.Element {
                         <Image
                             src="/optimImages/galaNight.png"
                             alt="Image 3"
-                            layout="fill"
-                            objectFit="cover"
+                            width={500} // Set the width
+                            height={300} // Set the height
+                            style={{ objectFit: "cover" }}
                             quality={100}
                         />
                         <div className={styles.copy}>

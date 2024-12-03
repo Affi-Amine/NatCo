@@ -38,7 +38,7 @@ export default function Footer(): JSX.Element {
                     d="m0,88.5c61.37,0,61.5-68,126.5-68,58,0,51,68,123,68"
                 />
                 <text
-                    className="text-[6px] uppercase"
+                    className="text-[7px] uppercase"
                     style={{
                         fill: "#87EEAB",
                         fontFamily: "Main, sans-serif", // Inline style

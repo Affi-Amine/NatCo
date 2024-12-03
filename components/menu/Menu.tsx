@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image'; 
+import Image from 'next/image';
 import gsap from 'gsap';
 import { Bubblegum_Sans } from 'next/font/google';
 
@@ -18,10 +18,8 @@ const menuLinks: MenuLink[] = [
   { path: '/', title: 'Home' },
   { path: '/registration', title: 'Registration' },
   { path: '/partner', title: 'Become A Partner' },
-  // Exclude "Memories" dynamically for mobile/tablet (handled below)
 ];
 
-// Custom useIsomorphicLayoutEffect
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
@@ -34,13 +32,19 @@ const Menu: React.FC = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
-  const closeMenuAndNavigate = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string) => {
+  const closeMenuAndNavigate = async (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    path: string
+  ) => {
     e.preventDefault(); // Prevent immediate navigation
+
     if (tl.current) {
-      tl.current.reverse();
-      tl.current.eventCallback('onReverseComplete', () => {
-        setIsMenuOpen(false); // Close the menu
-        window.location.href = path; // Navigate to the new page
+      // Reverse animation to close the menu
+      await tl.current.reverse().eventCallback('onReverseComplete', () => {
+        setIsMenuOpen(false); // Close the menu state
+        setTimeout(() => {
+          window.location.href = path; // Navigate after animation finishes
+        }, 300); // Add slight buffer delay
       });
     }
   };
@@ -50,9 +54,10 @@ const Menu: React.FC = () => {
 
     gsap.set('.menu-link-item-holder', { y: 75, opacity: 0 });
 
+    // GSAP Timeline for menu animations
     tl.current = gsap.timeline({ paused: true })
       .to('.menu-overlay', {
-        duration: 1.25, // Duration of the overlay animation
+        duration: 1.25,
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
         ease: 'power4.inOut',
       })
@@ -62,11 +67,20 @@ const Menu: React.FC = () => {
           y: 0,
           opacity: 1,
           duration: 0.6,
-          stagger: 0.15, // Delay between each item's animation
+          stagger: 0.15,
           ease: 'power4.out',
         },
-        '-=0.75' // Start this animation before the overlay animation finishes
-      );
+        '-=0.75'
+      )
+      .to(
+        '.menu-overlay',
+        {
+          clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+          duration: 0.5,
+          ease: 'power4.inOut',
+        },
+        '-=0.5'
+      ); // Animation to revert the overlay when closing the menu
   }, []);
 
   useEffect(() => {
@@ -79,7 +93,10 @@ const Menu: React.FC = () => {
     }
   }, [isMenuOpen]);
 
-  const filteredMenuLinks = window.innerWidth > 768 ? menuLinks.concat({ path: '/memories', title: 'Memories' }) : menuLinks;
+  const filteredMenuLinks =
+    typeof window !== 'undefined' && window.innerWidth > 768
+      ? menuLinks.concat({ path: '/memories', title: 'Memories' })
+      : menuLinks;
 
   return (
     <div className="relative z-50" ref={container}>
@@ -88,12 +105,19 @@ const Menu: React.FC = () => {
         {/* Logo */}
         <div className="ml-4">
           <Link href="/">
-            <Image src="/logo/logoBlanc.png" alt="Natco Logo" width={150} height={50} />
+            <Image
+              src="/logo/logoBlanc.png"
+              alt="Natco Logo"
+              width={150}
+              height={50}
+            />
           </Link>
         </div>
         {/* Menu Button */}
         <div className="cursor-pointer mr-4" onClick={toggleMenu}>
-          <p className={`uppercase text-white font-medium ${bubblegum.className}`}>Menu</p>
+          <p className={`uppercase text-white font-medium ${bubblegum.className}`}>
+            Menu
+          </p>
         </div>
       </div>
 
@@ -113,11 +137,20 @@ const Menu: React.FC = () => {
         <div className="flex justify-between items-center">
           <div className="ml-4">
             <Link href="/">
-              <Image src="/logo/logoBlanc.png" alt="Natco Logo" width={150} height={50} />
+              <Image
+                src="/logo/logoBlanc.png"
+                alt="Natco Logo"
+                width={150}
+                height={50}
+              />
             </Link>
           </div>
           <div className="cursor-pointer mr-4" onClick={toggleMenu}>
-            <p className={`uppercase text-black font-medium ${bubblegum.className}`}>Close</p>
+            <p
+              className={`uppercase text-black font-medium ${bubblegum.className}`}
+            >
+              Close
+            </p>
           </div>
         </div>
 
