@@ -24,25 +24,35 @@ const VintageGallery = () => {
       canvas.style.position = 'absolute';
       canvas.style.top = '0';
       canvas.style.left = '0';
-      canvas.style.zIndex = '1'; // Ensure canvas is behind the header
-
+      canvas.style.zIndex = '1';
+    
       engine = Engine.create();
       engine.world.gravity.y = 0.1;
-
+    
+      engine.constraintIterations = 2;
+      engine.positionIterations = 4;
+      engine.velocityIterations = 2;
+    
       addBoundaries();
-
+    
       for (let i = 0; i < 12; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
         items.push(new Item(x, y, `/optMemories/i${i + 1}.jpg`));
       }
-
+    
       const draw = () => {
-        Engine.update(engine);
-        items.forEach((item) => item.update());
+        Engine.update(engine, 1000 / 60);
         requestAnimationFrame(draw);
+        items.forEach((item) => item.update());
       };
+    
       draw();
+    
+      window.addEventListener('resize', () => {
+        canvas.width = galleryContainer?.offsetWidth || window.innerWidth;
+        canvas.height = galleryContainer?.offsetHeight || window.innerHeight;
+      });
     };
 
     const addBoundaries = () => {

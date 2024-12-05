@@ -114,7 +114,7 @@ export function Hero() {
               "text-center mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-white"
             )}
           >
-            Hosted By Aiesec Carthage
+            Hosted By AIESEC Carthage
           </p>
           {/* PNG Slogan */}
           <div className="mt-4">
