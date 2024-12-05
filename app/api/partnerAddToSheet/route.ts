@@ -13,6 +13,11 @@ export async function POST(req: Request) {
       GOOGLE_PARTNERSHIPS_SHEET_NAME,
     } = process.env;
 
+    console.log("GOOGLE_CLIENT_EMAIL:", process.env.GOOGLE_CLIENT_EMAIL ? "Loaded" : "Not Loaded");
+    console.log("GOOGLE_PRIVATE_KEY Length:", process.env.GOOGLE_PRIVATE_KEY?.length || "Not Loaded");
+    console.log("GOOGLE_SPREADSHEET_ID:", process.env.GOOGLE_SPREADSHEET_ID ? "Loaded" : "Not Loaded");
+    console.log("GOOGLE_PARTNERSHIPS_SHEET_NAME:", process.env.GOOGLE_PARTNERSHIPS_SHEET_NAME ? "Loaded" : "Not Loaded");
+
     if (!GOOGLE_PRIVATE_KEY || !GOOGLE_CLIENT_EMAIL || !GOOGLE_SPREADSHEET_ID || !GOOGLE_PARTNERSHIPS_SHEET_NAME) {
       console.error("Missing one or more required environment variables.");
       return NextResponse.json(
@@ -20,6 +25,8 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
+
+
 
     // Sanitize private key
     const cleanPrivateKey = GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
