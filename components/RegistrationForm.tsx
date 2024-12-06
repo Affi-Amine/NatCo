@@ -17,6 +17,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import SignaturePad from 'react-signature-canvas'
 
 import { Bubblegum_Sans } from 'next/font/google'
+import { DialogClose } from '@radix-ui/react-dialog';
 
 const bubblegum = Bubblegum_Sans({ weight: '400', subsets: ['latin'] })
 
@@ -135,10 +136,23 @@ export default function RegistrationForm() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">What is your LC?</Label>
-                                <Input
+                                <select
                                     {...register("lc")}
-                                    className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
-                                />
+                                    className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 w-full"
+                                >
+                                    <option value="">Select your LC</option>
+                                    <option value="Carthage">Carthage</option>
+                                    <option value="Bardo">Bardo</option>
+                                    <option value="University">University</option>
+                                    <option value="Medina">Medina</option>
+                                    <option value="Bizerte">Bizerte</option>
+                                    <option value="Nabeul">Nabeul</option>
+                                    <option value="Ruspina">Ruspina</option>
+                                    <option value="Hadrumet">Hadrumet</option>
+                                    <option value="Thyna">Thyna</option>
+                                    <option value="Sfax">Sfax</option>
+                                    <option value="Tacapes">Tacapes</option>
+                                </select>
                                 {errors.lc && <p className="text-red-500 text-sm">{errors.lc.message}</p>}
                             </div>
 
@@ -301,6 +315,49 @@ export default function RegistrationForm() {
                         </div>
 
                         <div className="space-y-2">
+                            <Label className="text-black font-medium">From which state are you?</Label>
+                            <select
+                                {...register("state")}
+                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 w-full"
+                            >
+                                <option value="" disabled>
+                                    Select your state
+                                </option>
+                                {[
+                                    "Tunis",
+                                    "Ariana",
+                                    "Ben Arous",
+                                    "Mannouba",
+                                    "Bizerte",
+                                    "Nabeul",
+                                    "Béja",
+                                    "Jendouba",
+                                    "Zaghouan",
+                                    "Siliana",
+                                    "Le Kef",
+                                    "Sousse",
+                                    "Monastir",
+                                    "Mahdia",
+                                    "Kasserine",
+                                    "Sidi Bouzid",
+                                    "Kairouan",
+                                    "Gafsa",
+                                    "Sfax",
+                                    "Gabès",
+                                    "Médenine",
+                                    "Tozeur",
+                                    "Kebili",
+                                    "Ttataouine",
+                                ].map((state) => (
+                                    <option key={state} value={state}>
+                                        {state}
+                                    </option>
+                                ))}
+                            </select>
+                            {errors.state && <p className="text-red-500 text-sm">{errors.state.message}</p>}
+                        </div>
+
+                        <div className="space-y-2">
                             <Label className="text-black font-medium">Do you have any allergies?</Label>
                             <Controller
                                 name="allergies"
@@ -372,47 +429,34 @@ red-500 text-sm">{errors.allergies.message}</p>}
                         </div>
 
                         <div className="space-y-2">
-                            <div className="flex items-center space-x-2">
+                            <div className="flex flex-wrap items-center space-x-2">
                                 <Dialog>
                                     <DialogTrigger asChild>
                                         <Button variant="link" className="p-0 text-pink-500 hover:text-pink-600">
                                             Indemnity Conditions
                                         </Button>
                                     </DialogTrigger>
-                                    <DialogContent className="bg-white rounded-lg p-6 max-w-2xl">
+                                    <DialogContent className="bg-white rounded-lg p-6 max-w-2xl w-full sm:w-11/12 md:w-9/12 lg:w-8/12">
                                         <DialogHeader>
-                                            <DialogTitle className="text-2xl font-bold text-pink-500 mb-4">Indemnity Conditions</DialogTitle>
+                                            <div className="flex justify-between items-center">
+                                                <DialogTitle className="text-xl md:text-2xl font-bold text-pink-500">
+                                                    Indemnity Conditions
+                                                </DialogTitle>
+                                                
+                                            </div>
                                         </DialogHeader>
-                                        <div className="text-sm text-gray-700 space-y-2">
+                                        <div className="text-sm text-gray-700 space-y-2 max-h-[70vh] overflow-y-auto">
                                             <p>As a Participant of the Conference, I hereby confirm that I shall act wisely and responsibly at all times during the conference and not harm the reputation or brand of AIESEC.</p>
                                             <ul className="list-disc pl-6 space-y-2">
-                                                <li>
-                                                    I will comply with all applicable rules and regulations and other reasonable directions given by AIESEC or others.
-                                                </li>
-                                                <li>
-                                                    In case anything is broken at the room, reception, or bar... according to the person will be responsible for paying the damages.
-                                                </li>
-                                                <li>
-                                                    I agree to follow further instructions announced by AIESEC or the hotel security staff regarding my presence in the hotel and the safety of my stay.
-                                                </li>
-                                                <li>
-                                                    I hereby declare that if, during the period specified above, any of my actions directly or indirectly cause any kind of damage, or injury to an individual or if I participate in any illegal activities, I shall be personally responsible and liable for such actions and consequences.
-                                                </li>
-                                                <li>
-                                                    I ASSUME FULL RESPONSIBILITY for understanding and following the rules and security practices associated with NatCo 2K24 and for my safety.
-                                                </li>
-                                                <li>
-                                                    I agree on respecting Human Dignity and integrity.
-                                                </li>
-                                                <li>
-                                                    I agree that I belong to an entity that condemns sexual exploitation, abuse, and discrimination in all its forms.
-                                                </li>
-                                                <li>
-                                                    I assume all the responsibility if anybody raises an ethical complaint toward me, and I will follow all the procedures set by the (sub)committee responsible (Ethics/Harassment Prevention).
-                                                </li>
-                                                <li>
-                                                    I agree on reporting to the responsible (sub)committee (Ethics/Harassment Prevention) if I will ever witness or become subjected to any unwanted sexual behavior(s) inside the conference.
-                                                </li>
+                                                <li>I will comply with all applicable rules and regulations and other reasonable directions given by AIESEC or others.</li>
+                                                <li>In case anything is broken at the room, reception, or bar... according to the person will be responsible for paying the damages.</li>
+                                                <li>I agree to follow further instructions announced by AIESEC or the hotel security staff regarding my presence in the hotel and the safety of my stay.</li>
+                                                <li>I hereby declare that if, during the period specified above, any of my actions directly or indirectly cause any kind of damage, or injury to an individual or if I participate in any illegal activities, I shall be personally responsible and liable for such actions and consequences.</li>
+                                                <li>I ASSUME FULL RESPONSIBILITY for understanding and following the rules and security practices associated with NatCo 2K24 and for my safety.</li>
+                                                <li>I agree on respecting Human Dignity and integrity.</li>
+                                                <li>I agree that I belong to an entity that condemns sexual exploitation, abuse, and discrimination in all its forms.</li>
+                                                <li>I assume all the responsibility if anybody raises an ethical complaint toward me, and I will follow all the procedures set by the (sub)committee responsible (Ethics/Harassment Prevention).</li>
+                                                <li>I agree on reporting to the responsible (sub)committee (Ethics/Harassment Prevention) if I will ever witness or become subjected to any unwanted sexual behavior(s) inside the conference.</li>
                                             </ul>
                                             <p className="font-bold mt-4">
                                                 I ACKNOWLEDGE that I have read and understood this agreement, that I appreciate and accept these risks associated with NatCo 2K24, and that I have executed this agreement voluntarily.
@@ -458,6 +502,93 @@ red-500 text-sm">{errors.allergies.message}</p>}
                                 </div>
                             </div>
                             {errors.digitalSignature && <p className="text-sm text-red-500">{errors.digitalSignature.message}</p>}
+                        </div>
+                        <div className="space-y-2">
+                            <Label className="text-black font-medium">
+                                If you had the chance to live in any planet, which one would it be?
+                            </Label>
+                            <Input
+                                {...register("planetChoice")}
+                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                            />
+                            {errors.planetChoice && <p className="text-red-500 text-sm">{errors.planetChoice.message}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-black font-medium">Why?</Label>
+                            <Input
+                                {...register("planetReason")}
+                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                            />
+                            {errors.planetReason && <p className="text-red-500 text-sm">{errors.planetReason.message}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-black font-medium">
+                                Have you ever considered launching your own business or startup?
+                            </Label>
+                            <div className="flex items-center space-x-4">
+                                <label className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        value="yes"
+                                        {...register("hasBusinessIdea")}
+                                        className="border-2 border-pink-300 focus:ring-pink-500"
+                                    />
+                                    <span>Yes</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        value="no"
+                                        {...register("hasBusinessIdea")}
+                                        className="border-2 border-pink-300 focus:ring-pink-500"
+                                    />
+                                    <span>No</span>
+                                </label>
+                            </div>
+                            {errors.hasBusinessIdea && (
+                                <p className="text-red-500 text-sm">{errors.hasBusinessIdea.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-black font-medium">
+                                Do you already have a business idea in mind? If yes, please describe.
+                            </Label>
+                            <Textarea
+                                {...register("businessIdeaDetails")}
+                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                            />
+                            {errors.businessIdeaDetails && (
+                                <p className="text-red-500 text-sm">{errors.businessIdeaDetails.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-black font-medium">
+                                What are you most looking forward to in the conference?
+                            </Label>
+                            <textarea
+                                {...register("conferenceLookingForward")}
+                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 w-full h-20"
+                            ></textarea>
+                            {errors.conferenceLookingForward && (
+                                <p className="text-red-500 text-sm">{errors.conferenceLookingForward.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-black font-medium">
+                                What do you expect from the conference chair?
+                            </Label>
+                            <textarea
+                                {...register("conferenceExpectations")}
+                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 w-full h-20"
+                            ></textarea>
+                            {errors.conferenceExpectations && (
+                                <p className="text-red-500 text-sm">{errors.conferenceExpectations.message}</p>
+                            )}
                         </div>
 
                         <div className="space-y-2">

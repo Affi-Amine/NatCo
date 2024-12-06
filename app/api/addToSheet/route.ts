@@ -110,6 +110,13 @@ export async function POST(req: Request) {
       data.allergiesDetails || "",
       data.chronicIllness || "",
       data.expectations || "",
+      data.state || "", // New: State field
+      data.planetChoice || "", // New: Planet choice field
+      data.planetReason || "", // New: Reason for planet choice
+      data.conferenceLookingForward || "", // New: What they're looking forward to
+      data.conferenceExpectations || "", // New: Expectations from the chair
+      data.hasBusinessIdea || "", // New: "Yes" or "No" answer
+      data.businessIdeaDetails || "", // New: Details about the business idea
     ];
 
     // Insert into Google Sheets
