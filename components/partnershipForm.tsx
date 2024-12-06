@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { partnerFormSchema, PartnerFormData } from './partnerFormSchema';
@@ -20,33 +20,41 @@ export default function PartnershipForm() {
         register,
         handleSubmit,
         control,
+        reset,
         formState: { errors },
     } = useForm<PartnerFormData>({
         resolver: zodResolver(partnerFormSchema),
     });
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     const onSubmit = async (data: PartnerFormData) => {
         console.log("Submitting form data:", data);
-    
+        setIsLoading(true);
+        setIsSuccess(false);
+        setErrorMessage('');
+
         try {
             const response = await fetch("/api/partnerAddToSheet", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ data }),
             });
-    
+
+            const result = await response.json();
             if (!response.ok) {
-                const error = await response.json();
-                console.error("Error from API:", error);
-                alert(`Error: ${error.error || "Unknown error"}`);
+                setErrorMessage(result.error || "An unknown error occurred.");
             } else {
-                const result = await response.json();
-                console.log("API response success:", result);
-                alert(result.message);
+                setIsSuccess(true);
+                reset();
             }
         } catch (error) {
             console.error("Unexpected error:", error);
-            alert("An unexpected error occurred. Please try again.");
+            setErrorMessage("An unexpected error occurred. Please try again.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -57,7 +65,7 @@ export default function PartnershipForm() {
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 lg:mb-12 text-purple-500">
                         NatCo 2K24 Partnership Form
                     </h1>
-    
+
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                             <div className="space-y-2">
@@ -69,7 +77,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.companyName && <p className="text-red-500 text-sm">{errors.companyName.message}</p>}
                             </div>
-    
+
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Company Field</Label>
                                 <Input
@@ -79,7 +87,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.companyField && <p className="text-red-500 text-sm">{errors.companyField.message}</p>}
                             </div>
-    
+
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Company Size</Label>
                                 <Controller
@@ -102,7 +110,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.companySize && <p className="text-red-500 text-sm">{errors.companySize.message}</p>}
                             </div>
-    
+
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Company LinkedIn Profile</Label>
                                 <Input
@@ -112,7 +120,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.linkedinProfile && <p className="text-red-500 text-sm">{errors.linkedinProfile.message}</p>}
                             </div>
-    
+
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Company Website</Label>
                                 <Input
@@ -122,7 +130,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.website && <p className="text-red-500 text-sm">{errors.website.message}</p>}
                             </div>
-    
+
                             <div className="space-y-2 md:col-span-2">
                                 <Label className="text-black font-medium">
                                     Why is your company interested in partnering with NatCo 2K24?
@@ -134,7 +142,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.partnershipReason && <p className="text-red-500 text-sm">{errors.partnershipReason.message}</p>}
                             </div>
-    
+
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Contact Person Name</Label>
                                 <Input
@@ -144,7 +152,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.contactName && <p className="text-red-500 text-sm">{errors.contactName.message}</p>}
                             </div>
-    
+
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Contact Person Email</Label>
                                 <Input
@@ -154,7 +162,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.contactEmail && <p className="text-red-500 text-sm">{errors.contactEmail.message}</p>}
                             </div>
-    
+
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Contact Person Mobile Number</Label>
                                 <Input
@@ -164,7 +172,7 @@ export default function PartnershipForm() {
                                 />
                                 {errors.contactPhone && <p className="text-red-500 text-sm">{errors.contactPhone.message}</p>}
                             </div>
-    
+
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Contact Person Position in the organization</Label>
                                 <Input
@@ -175,12 +183,41 @@ export default function PartnershipForm() {
                                 {errors.contactPosition && <p className="text-red-500 text-sm">{errors.contactPosition.message}</p>}
                             </div>
                         </div>
-    
+                        {/* Success or Error Popups */}
+                        {isSuccess && (
+                            <div className="fixed inset-0 flex items-center justify-center z-50">
+                                <div className="p-6 bg-white border-2 border-pink-300 rounded-lg flex flex-col">
+                                    <p className="text-lg font-semibold">Your data has been successfully submitted!</p>
+                                    <button
+                                        onClick={() => setIsSuccess(false)}
+                                        className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-md"
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {errorMessage && (
+                            <div className="fixed inset-0 flex items-center justify-center z-50">
+                                <div className="p-6 bg-white border-2 border-pink-300 rounded-lg flex flex-col">
+                                    <p className="text-lg font-semibold text-red-600">{errorMessage}</p>
+                                    <button
+                                        onClick={() => setErrorMessage('')}
+                                        className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-md"
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
                         <Button
                             type="submit"
-                            className="w-full bg-black hover:bg-purple-600 text-white rounded-lg py-2 sm:py-3 lg:py-4 text-base sm:text-lg lg:text-xl"
+                            disabled={isLoading}
+                            className={`w-full bg-black ${isLoading ? 'opacity-50' : 'hover:bg-purple-600'} text-white rounded-lg py-2 sm:py-3 lg:py-4 text-base sm:text-lg lg:text-xl`}
                         >
-                            Submit Partnership Request
+                            {isLoading ? "Submitting..." : "Submit Partnership Request"}
                         </Button>
                     </form>
                 </CardContent>
