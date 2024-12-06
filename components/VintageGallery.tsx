@@ -11,7 +11,7 @@ const VintageGallery = () => {
       galleryContainer.style.backgroundColor = '#047EF2';
     }
 
-    let engine: Engine;
+    let engine: Matter.Engine;
     const items: Item[] = [];
     let lastMouseX = -1;
     let lastMouseY = -1;
@@ -25,77 +25,85 @@ const VintageGallery = () => {
       canvas.style.top = '0';
       canvas.style.left = '0';
       canvas.style.zIndex = '1';
-    
+
       engine = Engine.create();
       engine.world.gravity.y = 0.1;
-    
-      engine.constraintIterations = 2;
-      engine.positionIterations = 4;
-      engine.velocityIterations = 2;
-    
-      addBoundaries();
-    
+
+      addBoundaries(engine, canvas);
+
+      // Create the items
       for (let i = 0; i < 12; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
-        items.push(new Item(x, y, `/optMemories/i${i + 1}.jpg`));
+        items.push(new Item(x, y, `/optMemories/i${i + 1}.jpg`, engine, galleryContainer));
       }
-    
+
       const draw = () => {
         Engine.update(engine, 1000 / 60);
-        requestAnimationFrame(draw);
         items.forEach((item) => item.update());
+        requestAnimationFrame(draw);
       };
-    
+
       draw();
-    
-      window.addEventListener('resize', () => {
+
+      // Handle resize
+      const handleResize = () => {
         canvas.width = galleryContainer?.offsetWidth || window.innerWidth;
         canvas.height = galleryContainer?.offsetHeight || window.innerHeight;
-      });
+        World.clear(engine.world, true);
+        addBoundaries(engine, canvas);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        World.clear(engine.world, true);
+        Engine.clear(engine);
+        galleryContainer!.innerHTML = ''; // Cleanup
+      };
     };
 
-    const addBoundaries = () => {
-      const thickness = 50; // Thickness of the boundary walls
+    const addBoundaries = (engine: Matter.Engine, canvas: HTMLCanvasElement) => {
+      const thickness = 50;
 
       World.add(engine.world, [
         Bodies.rectangle(
-          (galleryContainer?.offsetWidth || window.innerWidth) / 2,
+          canvas.width / 2,
           -thickness / 2,
-          galleryContainer?.offsetWidth || window.innerWidth,
+          canvas.width,
           thickness,
           { isStatic: true }
         ),
         Bodies.rectangle(
-          (galleryContainer?.offsetWidth || window.innerWidth) / 2,
-          (galleryContainer?.offsetHeight || window.innerHeight) + thickness / 2,
-          galleryContainer?.offsetWidth || window.innerWidth,
+          canvas.width / 2,
+          canvas.height + thickness / 2,
+          canvas.width,
           thickness,
           { isStatic: true }
         ),
         Bodies.rectangle(
           -thickness / 2,
-          (galleryContainer?.offsetHeight || window.innerHeight) / 2,
+          canvas.height / 2,
           thickness,
-          galleryContainer?.offsetHeight || window.innerHeight,
+          canvas.height,
           { isStatic: true }
         ),
         Bodies.rectangle(
-          (galleryContainer?.offsetWidth || window.innerWidth) + thickness / 2,
-          (galleryContainer?.offsetHeight || window.innerHeight) / 2,
+          canvas.width + thickness / 2,
+          canvas.height / 2,
           thickness,
-          galleryContainer?.offsetHeight || window.innerHeight,
+          canvas.height,
           { isStatic: true }
         ),
       ]);
     };
 
-    // Typing 'this' as 'Item' inside the Item class
     class Item {
       body: Matter.Body;
       div: HTMLDivElement;
 
-      constructor(x: number, y: number, imagePath: string) {
+      constructor(x: number, y: number, imagePath: string, engine: Matter.Engine, container: HTMLElement | null) {
         const options: Matter.IBodyDefinition = {
           frictionAir: 0.075,
           restitution: 0.25,
@@ -108,12 +116,12 @@ const VintageGallery = () => {
 
         this.div = document.createElement('div');
         this.div.className = styles.item;
-        this.div.style.zIndex = '2'; // Ensure items are below the header
+        this.div.style.zIndex = '2';
 
         const img = document.createElement('img');
         img.src = imagePath;
         this.div.appendChild(img);
-        galleryContainer?.appendChild(this.div);
+        container?.appendChild(this.div);
       }
 
       update() {
@@ -159,9 +167,7 @@ const VintageGallery = () => {
   }, []);
 
   return (
-    <div id="gallery-container" className={styles.galleryContainer}>
-      {/* The header has been removed */}
-    </div>
+    <div id="gallery-container" className={styles.galleryContainer}></div>
   );
 };
 
