@@ -15,7 +15,10 @@ body {
   /*background-color: #0E172A;*/
   /*background-color: #36454F;*/
   background-color: #0E172A;
+  margin: 0;
+  padding: 0;
 }
+
 
 nav,
 footer {

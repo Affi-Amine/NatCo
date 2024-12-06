@@ -36,6 +36,10 @@ export default function RegistrationForm() {
     const [cvFileName, setCvFileName] = useState<string>('');
     const [signaturePad, setSignaturePad] = useState<SignaturePad | null>(null);
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);  // Track success message
+    const [errorMessage, setErrorMessage] = useState('');
+
     const onSubmit = async (data: FormData) => {
         const encodeFileToBase64 = (file: File): Promise<string> =>
             new Promise((resolve, reject) => {
@@ -50,22 +54,30 @@ export default function RegistrationForm() {
                 reader.onerror = (error) => reject(error);
                 reader.readAsDataURL(file);
             });
-
+    
+        setIsLoading(true); // Start loading
+        setIsSuccess(false); // Reset success state
+        setErrorMessage(''); // Clear error message
+    
+        console.log('Submitting the form...'); // Debug log
+    
         try {
             const photoFileInput = document.getElementById("photo-upload") as HTMLInputElement | null;
             const cvFileInput = document.getElementById("cv-upload") as HTMLInputElement | null;
-
+    
             if (!photoFileInput || !cvFileInput) {
                 throw new Error("File input elements not found.");
             }
-
+    
             const photoFile = photoFileInput.files?.[0];
             const cvFile = cvFileInput.files?.[0];
             const digitalSignature = data.digitalSignature; // Signature data from SignaturePad
-
+    
             const photoBase64 = photoFile ? await encodeFileToBase64(photoFile) : null;
             const cvBase64 = cvFile ? await encodeFileToBase64(cvFile) : null;
-
+    
+            console.log('Sending request to API...'); // Debug log
+    
             const response = await fetch("/api/addToSheet", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -82,23 +94,30 @@ export default function RegistrationForm() {
                         : null,
                 }),
             });
-
+    
+            console.log('Response received:', response); // Debug log
+    
+            setIsLoading(false); // Stop loading
+    
             if (response.ok) {
                 const result = await response.json();
-                alert(result.message);
+                setIsSuccess(true); // Show success message
                 reset();
                 setPhotoFileName("");
                 setCvFileName("");
                 if (signaturePad) {
                     signaturePad.clear();
                 }
+                console.log('Form submitted successfully'); // Debug log
             } else {
                 const error = await response.json();
-                alert(`Error: ${error.error}`);
+                setErrorMessage(error.error || 'Something went wrong.');
+                console.error('Error response:', error); // Debug log
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("An unexpected error occurred. Please try again.");
+            setIsLoading(false); // Stop loading
+            setErrorMessage('An unexpected error occurred. Please try again.');
         }
     };
 
@@ -124,8 +143,8 @@ export default function RegistrationForm() {
     };
 
     return (
-        <div className={`min-h-screen bg-pink-200 pt-[120px] pb-8 px-4 sm:px-8 lg:px-16 ${bubblegum.className}`}>
-            <Card className="mx-auto max-w-4xl bg-white rounded-3xl shadow-lg">
+        <div className={`min-h-screen bg-pink-200 pt-[120px] pb-8 px-4  sm:px-8 lg:px-16 ${bubblegum.className}`}>
+            <Card className="mx-auto max-w-4xl bg-white rounded-3xl shadow-lg ">
                 <CardContent className="p-8">
                     <h1 className="text-4xl font-bold text-center mb-8 text-pink-500">
                         NatCo Adventure Form
@@ -441,7 +460,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                                                 <DialogTitle className="text-xl md:text-2xl font-bold text-pink-500">
                                                     Indemnity Conditions
                                                 </DialogTitle>
-                                                
+
                                             </div>
                                         </DialogHeader>
                                         <div className="text-sm text-gray-700 space-y-2 max-h-[70vh] overflow-y-auto">
@@ -599,12 +618,47 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             {errors.expectations && <p className="text-sm text-red-500">{errors.expectations.message}</p>}
                         </div>
 
-                        <Button
-                            type="submit"
-                            className="w-full bg-pink-500 hover:bg-pink-600 text-white"
-                        >
-                            Submit
-                        </Button>
+                        
+
+                        {/* Success or Error Popups */}
+                        {isSuccess && (
+                            <div className="fixed inset-0 top-0 left-0 right-0 bottom-0 flex items-center justify-center  z-50 border-6">
+                                <div className="p-6 bg-white border-2 border-pink-300 rounded-lg flex flex-col">
+                                    <p className="text-lg font-semibold">Your data has been successfully submitted!</p>
+                                    <button
+                                        onClick={() => setIsSuccess(false)}
+                                        className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-md  align-center justify-center"
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {errorMessage && (
+                            <div className="fixed inset-0 top-0 left-0 right-0 bottom-0 flex items-center justify-center  z-50">
+                                <div className="p-6 bg-white border-2 border-pink-300 rounded-lg">
+                                    <p className="text-lg font-semibold text-red-600">{errorMessage}</p>
+                                    <button
+                                        onClick={() => setErrorMessage('')}
+                                        className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-md"
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Center the Submit Button */}
+                        <div className="flex justify-center mt-6">
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                                className={`px-6 py-3 text-white bg-pink-500 rounded-md ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                                {isLoading ? 'Submitting...' : 'Submit'}
+                            </button>
+                        </div>
                     </form>
                 </CardContent>
             </Card>
