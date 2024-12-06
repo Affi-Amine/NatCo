@@ -17,7 +17,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import SignaturePad from 'react-signature-canvas'
 
 import { Bubblegum_Sans } from 'next/font/google'
-import { DialogClose } from '@radix-ui/react-dialog';
 
 const bubblegum = Bubblegum_Sans({ weight: '400', subsets: ['latin'] })
 
