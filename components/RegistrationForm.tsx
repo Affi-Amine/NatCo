@@ -100,7 +100,6 @@ export default function RegistrationForm() {
             setIsLoading(false); // Stop loading
     
             if (response.ok) {
-                const result = await response.json();
                 setIsSuccess(true); // Show success message
                 reset();
                 setPhotoFileName("");
