@@ -108,17 +108,9 @@ const Definition = () => {
         <p
           className={`paragraph text-lg text-white md:text-xl lg:text-2xl mb-4 ${poppins.className}`}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet nam,
-          minima tempora culpa accusamus eum, quas repellendus voluptatum, odio
-          quam libero voluptates totam quia obcaecati ratione. Suscipit adipisci
-          commodi possimus!
+          NATCO is the largest and most impactful conference organized by AIESEC in Tunisia. This flagship event gathers young talents from across the country, along with expert trainers, for transformative personal development sessions. It provides a unique space for exchange, innovation, and growth, empowering youth to become leaders and change makers in their country while living the core values of AIESEC.
         </p>
-        <p
-          className={`paragraph text-lg text-white md:text-xl lg:text-2xl mb-4 ${poppins.className}`}
-        >
-          Hosted in the heart of Egypt, the MEA Summit is your chance to embrace
-          cultural diversity and make connections that transcend borders.
-        </p>
+        
       </div>
       <div className="decorative-line h-1 w-32 bg-yellow-400 mx-auto mb-6"></div>
     </section>

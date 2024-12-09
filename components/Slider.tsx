@@ -6,6 +6,13 @@ import { CustomEase } from "gsap/CustomEase";
 import Image from "next/image"; // Import next/image for optimized images
 import styles from "./Slider.module.css";
 import { bubblegum } from "@/lib/fonts";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+    subsets: ["latin"],
+    weight: ["400", "500"],
+    display: "swap",
+});
 
 // Registering GSAP CustomEase plugin
 gsap.registerPlugin(CustomEase);
@@ -106,52 +113,64 @@ export default function Slider(): JSX.Element {
                         <Image
                             src="/assets/i4.jpg"
                             alt="Image 4"
-                            width={500} // Set the width
-                            height={300} // Set the height
+                            width={500}
+                            height={300}
                             style={{ objectFit: "cover" }}
-                            quality={100} // Optimized image quality
+                            quality={100}
                         />
                         <div className={styles.copy}>
-                            <h1>OC Party</h1>
+                            <h1>Village Fiesta</h1>
+                            <p className={`text-white text-center ${poppins.className}`}>
+                                EA Celebration of Unity in Diversity. Join us for Village Fiesta, a vibrant cultural exchange where you have the chance to represent your home states through traditional food, clothing, music, and more! Celebrate the richness of our heritage, share unique traditions, and enjoy the beauty of diversity in one unforgettable party. Oh, and let&apos;s just say... there&apos;s a special musical surprise waiting to make the night even more magical. You won&apos;t want to miss it!
+                            </p>
                         </div>
                     </div>
                     <div className={styles.card}>
                         <Image
                             src="/optimImages/mcpElection.png"
                             alt="Image 1"
-                            width={500} // Set the width
-                            height={300} // Set the height
+                            width={500}
+                            height={300}
                             style={{ objectFit: "cover" }}
                             quality={100}
                         />
                         <div className={styles.copy}>
                             <h1>MCP Election</h1>
+                            <p className={`text-white text-center ${poppins.className}`}>
+                                The election of the National President is a highlight of the conference, where the future leader of AIESEC in Tunisia is chosen. This event represents leadership, vision, and a deep commitment to the organization&apos;s mission.
+                            </p>
                         </div>
                     </div>
                     <div className={styles.card}>
                         <Image
                             src="/optimImages/careerFair.png"
                             alt="Image 2"
-                            width={500} // Set the width
-                            height={300} // Set the height
+                            width={500}
+                            height={300}
                             style={{ objectFit: "cover" }}
                             quality={100}
                         />
                         <div className={styles.copy}>
                             <h1>Career Fair</h1>
+                            <p className={`text-white text-center ${poppins.className}`}>
+                                Career Fair 2.0, part of AIESEC&apos;s biggest national conference in Tunisia, is the ultimate platform to connect with top companies, discover career opportunities, and sharpen your skills. With keynotes, networking, panels, and hands-on workshops, it&apos;s your chance to kickstart your future. Don&apos;t miss it!
+                            </p>
                         </div>
                     </div>
                     <div className={styles.card}>
                         <Image
                             src="/optimImages/galaNight.png"
                             alt="Image 3"
-                            width={500} // Set the width
-                            height={300} // Set the height
+                            width={500}
+                            height={300}
                             style={{ objectFit: "cover" }}
                             quality={100}
                         />
                         <div className={styles.copy}>
                             <h1>Gala Night</h1>
+                            <p className={`text-white text-center ${poppins.className}`}>
+                                An elegant evening celebrating the achievements within the AIESEC community, providing a relaxed setting for networking and recognizing accomplishments.
+                            </p>
                         </div>
                     </div>
                 </div>

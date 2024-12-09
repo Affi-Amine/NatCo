@@ -115,7 +115,7 @@ export default function PartnershipForm() {
                                 <Label className="text-black font-medium">Company LinkedIn Profile</Label>
                                 <Input
                                     {...register("linkedinProfile")}
-                                    placeholder="ex: https://www.linkedin.com/company/strategico"
+                                    placeholder="ex: https://www.linkedin.com/company/hyperdev"
                                     className="border-2 border-purple-300 rounded-lg focus:border-purple-500 focus:ring-0"
                                 />
                                 {errors.linkedinProfile && <p className="text-red-500 text-sm">{errors.linkedinProfile.message}</p>}
@@ -147,7 +147,7 @@ export default function PartnershipForm() {
                                 <Label className="text-black font-medium">Contact Person Name</Label>
                                 <Input
                                     {...register("contactName")}
-                                    placeholder="ex: Mark Jose"
+                                    placeholder="ex: Amine Affi"
                                     className="border-2 border-purple-300 rounded-lg focus:border-purple-500 focus:ring-0"
                                 />
                                 {errors.contactName && <p className="text-red-500 text-sm">{errors.contactName.message}</p>}
@@ -157,7 +157,7 @@ export default function PartnershipForm() {
                                 <Label className="text-black font-medium">Contact Person Email</Label>
                                 <Input
                                     {...register("contactEmail")}
-                                    placeholder="example@gmail.com"
+                                    placeholder="affi.amin.work@gmail.com"
                                     className="border-2 border-purple-300 rounded-lg focus:border-purple-500 focus:ring-0"
                                 />
                                 {errors.contactEmail && <p className="text-red-500 text-sm">{errors.contactEmail.message}</p>}
@@ -167,7 +167,7 @@ export default function PartnershipForm() {
                                 <Label className="text-black font-medium">Contact Person Mobile Number</Label>
                                 <Input
                                     {...register("contactPhone")}
-                                    placeholder="ex: 12XXXXXXXX"
+                                    placeholder="ex: 28108923"
                                     className="border-2 border-purple-300 rounded-lg focus:border-purple-500 focus:ring-0"
                                 />
                                 {errors.contactPhone && <p className="text-red-500 text-sm">{errors.contactPhone.message}</p>}
