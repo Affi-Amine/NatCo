@@ -247,7 +247,7 @@ export default function RegistrationForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-black font-medium">Upload Your Photo</Label>
+                                <Label className="text-black font-medium">Upload Your Photo &#40;Childhood Picture&#41;</Label>
                                 <div className="border-2 border-purple border-dashed rounded-lg p-4 text-center">
                                     <label htmlFor="photo-upload" className="cursor-pointer">
                                         <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
