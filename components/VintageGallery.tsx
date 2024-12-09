@@ -8,7 +8,7 @@ const VintageGallery = () => {
   useEffect(() => {
     const galleryContainer = document.getElementById('gallery-container');
     if (galleryContainer) {
-      galleryContainer.style.backgroundColor = '#047EF2';
+      galleryContainer.style.backgroundColor = '#0e172a';
     }
 
     let engine: Matter.Engine;

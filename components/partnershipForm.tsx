@@ -63,7 +63,7 @@ export default function PartnershipForm() {
             <Card className="mx-auto w-full max-w-lg sm:max-w-xl lg:max-w-4xl bg-white rounded-3xl shadow-lg">
                 <CardContent className="p-6 sm:p-8 lg:p-12">
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 lg:mb-12 text-purple-500">
-                        NatCo 2K24 Partnership Form
+                        Nat&apos;Co 2K24 Partnership Form
                     </h1>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -180,14 +180,14 @@ export default function PartnershipForm() {
                                     placeholder="ex: Business Development Manager"
                                     className="border-2 border-purple-300 rounded-lg focus:border-purple-500 focus:ring-0"
                                 />
-                                {errors.contactPosition && <p className="text-red-500 text-sm">{errors.contactPosition.message}</p>}
+                                {errors.contactPosition && <p className="text-red-500 text-sm">Please double check all fields are filled correctly!</p>}
                             </div>
                         </div>
                         {/* Success or Error Popups */}
                         {isSuccess && (
                             <div className="fixed inset-0 flex items-center justify-center z-50">
                                 <div className="p-6 bg-white border-2 border-pink-300 rounded-lg flex flex-col">
-                                    <p className="text-lg font-semibold">Your data has been successfully submitted!</p>
+                                    <p className="text-lg font-semibold">Your registration for NAT&apos;CO is done successfully!</p>
                                     <button
                                         onClick={() => setIsSuccess(false)}
                                         className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-md"

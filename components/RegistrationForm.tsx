@@ -54,30 +54,30 @@ export default function RegistrationForm() {
                 reader.onerror = (error) => reject(error);
                 reader.readAsDataURL(file);
             });
-    
+
         setIsLoading(true); // Start loading
         setIsSuccess(false); // Reset success state
         setErrorMessage(''); // Clear error message
-    
+
         console.log('Submitting the form...'); // Debug log
-    
+
         try {
             const photoFileInput = document.getElementById("photo-upload") as HTMLInputElement | null;
             const cvFileInput = document.getElementById("cv-upload") as HTMLInputElement | null;
-    
+
             if (!photoFileInput || !cvFileInput) {
                 throw new Error("File input elements not found.");
             }
-    
+
             const photoFile = photoFileInput.files?.[0];
             const cvFile = cvFileInput.files?.[0];
             const digitalSignature = data.digitalSignature; // Signature data from SignaturePad
-    
+
             const photoBase64 = photoFile ? await encodeFileToBase64(photoFile) : null;
             const cvBase64 = cvFile ? await encodeFileToBase64(cvFile) : null;
-    
+
             console.log('Sending request to API...'); // Debug log
-    
+
             const response = await fetch("/api/addToSheet", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -94,11 +94,11 @@ export default function RegistrationForm() {
                         : null,
                 }),
             });
-    
+
             console.log('Response received:', response); // Debug log
-    
+
             setIsLoading(false); // Stop loading
-    
+
             if (response.ok) {
                 setIsSuccess(true); // Show success message
                 reset();
@@ -142,11 +142,11 @@ export default function RegistrationForm() {
     };
 
     return (
-        <div className={`min-h-screen bg-pink-200 pt-[120px] pb-8 px-4  sm:px-8 lg:px-16 ${bubblegum.className}`}>
+        <div className={`min-h-screen bg-purple-700 pt-[120px] pb-8 px-4  sm:px-8 lg:px-16 ${bubblegum.className}`}>
             <Card className="mx-auto max-w-4xl bg-white rounded-3xl shadow-lg ">
                 <CardContent className="p-8">
-                    <h1 className="text-4xl font-bold text-center mb-8 text-pink-500">
-                        NatCo Adventure Form
+                    <h1 className="text-4xl font-bold text-center mb-8 text-purple-100">
+                        Nat&apos;Co Adventure Form
                     </h1>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -155,20 +155,20 @@ export default function RegistrationForm() {
                                 <Label className="text-black font-medium">What is your LC?</Label>
                                 <select
                                     {...register("lc")}
-                                    className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 w-full"
+                                    className="border-2 border-purple rounded-lg focus:border-purple focus:ring-0 w-full"
                                 >
                                     <option value="">Select your LC</option>
-                                    <option value="Carthage">Carthage</option>
                                     <option value="Bardo">Bardo</option>
-                                    <option value="University">University</option>
-                                    <option value="Medina">Medina</option>
                                     <option value="Bizerte">Bizerte</option>
+                                    <option value="Carthage">Carthage</option>
+                                    <option value="Hadrumet">Hadrumet</option>
+                                    <option value="Medina">Medina</option>
                                     <option value="Nabeul">Nabeul</option>
                                     <option value="Ruspina">Ruspina</option>
-                                    <option value="Hadrumet">Hadrumet</option>
-                                    <option value="Thyna">Thyna</option>
                                     <option value="Sfax">Sfax</option>
                                     <option value="Tacapes">Tacapes</option>
+                                    <option value="Thyna">Thyna</option>
+                                    <option value="University">University</option>
                                 </select>
                                 {errors.lc && <p className="text-red-500 text-sm">{errors.lc.message}</p>}
                             </div>
@@ -177,7 +177,7 @@ export default function RegistrationForm() {
                                 <Label className="text-black font-medium">Full Name</Label>
                                 <Input
                                     {...register("fullName")}
-                                    className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                    className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                                 />
                                 {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName.message}</p>}
                             </div>
@@ -187,7 +187,7 @@ export default function RegistrationForm() {
                                 <Input
                                     type="email"
                                     {...register("email")}
-                                    className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                    className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                                 />
                                 {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                             </div>
@@ -201,7 +201,7 @@ export default function RegistrationForm() {
                                             <Checkbox
                                                 checked={field.value}
                                                 onCheckedChange={field.onChange}
-                                                className="border-2 border-pink-300 data-[state=checked]:bg-pink-500"
+                                                className="border-2 border-purple data-[state=checked]:bg-purple"
                                             />
                                             <Label className="text-black font-medium">Share personal info with partners</Label>
                                         </div>
@@ -213,7 +213,7 @@ export default function RegistrationForm() {
                                 <Label className="text-black font-medium">CIN</Label>
                                 <Input
                                     {...register("cin")}
-                                    className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                    className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                                 />
                                 {errors.cin && <p className="text-red-500 text-sm">{errors.cin.message}</p>}
                             </div>
@@ -222,7 +222,7 @@ export default function RegistrationForm() {
                                 <Label className="text-black font-medium">Phone Number</Label>
                                 <Input
                                     {...register("phoneNumber")}
-                                    className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                    className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                                 />
                                 {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>}
                             </div>
@@ -231,7 +231,7 @@ export default function RegistrationForm() {
                                 <Label className="text-black font-medium">Emergency Number</Label>
                                 <Input
                                     {...register("emergencyNumber")}
-                                    className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                    className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                                 />
                                 {errors.emergencyNumber && <p className="text-red-500 text-sm">{errors.emergencyNumber.message}</p>}
                             </div>
@@ -241,14 +241,14 @@ export default function RegistrationForm() {
                                 <Input
                                     type="date"
                                     {...register("dateOfBirth")}
-                                    className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                    className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                                 />
                                 {errors.dateOfBirth && <p className="text-red-500 text-sm">{errors.dateOfBirth.message}</p>}
                             </div>
 
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Upload Your Photo</Label>
-                                <div className="border-2 border-pink-300 border-dashed rounded-lg p-4 text-center">
+                                <div className="border-2 border-purple border-dashed rounded-lg p-4 text-center">
                                     <label htmlFor="photo-upload" className="cursor-pointer">
                                         <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
                                         <p className="text-sm text-gray-500">
@@ -269,7 +269,7 @@ export default function RegistrationForm() {
 
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">Upload Your CV</Label>
-                                <div className="border-2 border-pink-300 border-dashed rounded-lg p-4 text-center">
+                                <div className="border-2 border-purple border-dashed rounded-lg p-4 text-center">
                                     <label htmlFor="cv-upload" className="cursor-pointer">
                                         <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
                                         <p className="text-sm text-gray-500">
@@ -295,11 +295,11 @@ export default function RegistrationForm() {
                                     control={control}
                                     render={({ field }) => (
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                            <SelectTrigger className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0">
+                                            <SelectTrigger className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0">
                                                 <SelectValue placeholder="Select Key Area" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {["Board of presidents", "OGV", "OGT", "IGV", "IGT", "BD", "Marketing", "TM", "F&L", "PM&EwA"].map((area) => (
+                                                {["Board of presidents", "OGV", "OGT", "IGV", "IGT", "Marketing", "TM", "F&L", "Pm&ewa", "IM", "BD&ewa"].map((area) => (
                                                     <SelectItem key={area} value={area}>{area}</SelectItem>
                                                 ))}
                                             </SelectContent>
@@ -316,11 +316,11 @@ export default function RegistrationForm() {
                                     control={control}
                                     render={({ field }) => (
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                            <SelectTrigger className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0">
+                                            <SelectTrigger className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0">
                                                 <SelectValue placeholder="Select Position" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {["Local committee president (current)", "Local committee president(elect)", "Vice president (current)", "Vice president(elect)", "Middle manager", "Team member", "Newbie"].map((position) => (
+                                                {["Local committee president (current)", "Local committee president(elect)", "Vice president (current)", "Vice president(elect)", "Middle manager current", "Middle Manager selected", "Team member", "Newbie"].map((position) => (
                                                     <SelectItem key={position} value={position}>{position}</SelectItem>
                                                 ))}
                                             </SelectContent>
@@ -335,7 +335,7 @@ export default function RegistrationForm() {
                             <Label className="text-black font-medium">From which state are you?</Label>
                             <select
                                 {...register("state")}
-                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 w-full"
+                                className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0 w-full"
                             >
                                 <option value="" disabled>
                                     Select your state
@@ -388,14 +388,14 @@ export default function RegistrationForm() {
                                         <div className="flex items-center space-x-2">
                                             <RadioGroupItem
                                                 value="yes"
-                                                className="border-2 border-pink-300 text-pink-500"
+                                                className="border-2 border-purple text-purple-700"
                                             />
                                             <Label>Yes</Label>
                                         </div>
                                         <div className="flex items-center space-x-2">
                                             <RadioGroupItem
                                                 value="no"
-                                                className="border-2 border-pink-300 text-pink-500"
+                                                className="border-2 border-purple text-purple-700"
                                             />
                                             <Label>No</Label>
                                         </div>
@@ -410,7 +410,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             <Label className="text-black font-medium">If yes, mention it</Label>
                             <Input
                                 {...register("allergiesDetails")}
-                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                             />
                         </div>
 
@@ -428,14 +428,14 @@ red-500 text-sm">{errors.allergies.message}</p>}
                                         <div className="flex items-center space-x-2">
                                             <RadioGroupItem
                                                 value="yes"
-                                                className="border-2 border-pink-300 text-pink-500"
+                                                className="border-2 border-purple text-purple-700"
                                             />
                                             <Label>Yes</Label>
                                         </div>
                                         <div className="flex items-center space-x-2">
                                             <RadioGroupItem
                                                 value="no"
-                                                className="border-2 border-pink-300 text-pink-500"
+                                                className="border-2 border-purple text-purple-700"
                                             />
                                             <Label>No</Label>
                                         </div>
@@ -449,14 +449,14 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             <div className="flex flex-wrap items-center space-x-2">
                                 <Dialog>
                                     <DialogTrigger asChild>
-                                        <Button variant="link" className="p-0 text-pink-500 hover:text-pink-600">
+                                        <Button variant="link" className="p-0 text-purple hover:text-purple">
                                             Indemnity Conditions
                                         </Button>
                                     </DialogTrigger>
                                     <DialogContent className="bg-white rounded-lg p-6 max-w-2xl w-full sm:w-11/12 md:w-9/12 lg:w-8/12">
                                         <DialogHeader>
                                             <div className="flex justify-between items-center">
-                                                <DialogTitle className="text-xl md:text-2xl font-bold text-pink-500">
+                                                <DialogTitle className="text-xl md:text-2xl font-bold text-purple">
                                                     Indemnity Conditions
                                                 </DialogTitle>
 
@@ -488,7 +488,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                                         <Checkbox
                                             checked={field.value}
                                             onCheckedChange={field.onChange}
-                                            className="border-2 border-pink-300 data-[state=checked]:bg-pink-500"
+                                            className="border-2 border-purple data-[state=checked]:bg-purple"
                                         />
                                     )}
                                 />
@@ -499,11 +499,11 @@ red-500 text-sm">{errors.allergies.message}</p>}
 
                         <div className="space-y-2">
                             <Label className="text-black font-medium">Digital Signature</Label>
-                            <div className="border-2 border-pink-300 rounded-lg p-4">
+                            <div className="border-2 border-purple rounded-lg p-4">
                                 <SignaturePad
                                     ref={(ref) => setSignaturePad(ref)}
                                     canvasProps={{
-                                        className: "w-full h-40 border border-gray-300 rounded"
+                                        className: "w-full h-40 border border-gray rounded"
                                     }}
                                     onEnd={handleSignatureEnd}
                                 />
@@ -511,7 +511,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                                     <Button
                                         type="button"
                                         variant="outline"
-                                        className="text-pink-500 border-pink-500 hover:bg-pink-50"
+                                        className="text-purple-700 border-purple-700 hover:bg-purple-50"
                                         onClick={() => signaturePad?.clear()}
                                     >
                                         Clear Signature
@@ -526,7 +526,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             </Label>
                             <Input
                                 {...register("planetChoice")}
-                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                             />
                             {errors.planetChoice && <p className="text-red-500 text-sm">{errors.planetChoice.message}</p>}
                         </div>
@@ -535,7 +535,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             <Label className="text-black font-medium">Why?</Label>
                             <Input
                                 {...register("planetReason")}
-                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                             />
                             {errors.planetReason && <p className="text-red-500 text-sm">{errors.planetReason.message}</p>}
                         </div>
@@ -550,7 +550,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                                         type="radio"
                                         value="yes"
                                         {...register("hasBusinessIdea")}
-                                        className="border-2 border-pink-300 focus:ring-pink-500"
+                                        className="border-2 border-purple focus:ring-purple-700"
                                     />
                                     <span>Yes</span>
                                 </label>
@@ -559,7 +559,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                                         type="radio"
                                         value="no"
                                         {...register("hasBusinessIdea")}
-                                        className="border-2 border-pink-300 focus:ring-pink-500"
+                                        className="border-2 border-purple focus:ring-purple-700"
                                     />
                                     <span>No</span>
                                 </label>
@@ -575,7 +575,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             </Label>
                             <Textarea
                                 {...register("businessIdeaDetails")}
-                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0"
+                                className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0"
                             />
                             {errors.businessIdeaDetails && (
                                 <p className="text-red-500 text-sm">{errors.businessIdeaDetails.message}</p>
@@ -588,7 +588,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             </Label>
                             <textarea
                                 {...register("conferenceLookingForward")}
-                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 w-full h-20"
+                                className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0 w-full h-20"
                             ></textarea>
                             {errors.conferenceLookingForward && (
                                 <p className="text-red-500 text-sm">{errors.conferenceLookingForward.message}</p>
@@ -601,7 +601,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             </Label>
                             <textarea
                                 {...register("conferenceExpectations")}
-                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 w-full h-20"
+                                className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0 w-full h-20"
                             ></textarea>
                             {errors.conferenceExpectations && (
                                 <p className="text-red-500 text-sm">{errors.conferenceExpectations.message}</p>
@@ -612,21 +612,21 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             <Label className="text-black font-medium">What do you expect from FACI team and OC team?</Label>
                             <Textarea
                                 {...register("expectations")}
-                                className="border-2 border-pink-300 rounded-lg focus:border-pink-500 focus:ring-0 min-h-[100px]"
+                                className="border-2 border-purple rounded-lg focus:border-purple-700 focus:ring-0 min-h-[100px]"
                             />
                             {errors.expectations && <p className="text-sm text-red-500">{errors.expectations.message}</p>}
                         </div>
 
-                        
+
 
                         {/* Success or Error Popups */}
                         {isSuccess && (
                             <div className="fixed inset-0 top-0 left-0 right-0 bottom-0 flex items-center justify-center  z-50 border-6">
-                                <div className="p-6 bg-white border-2 border-pink-300 rounded-lg flex flex-col">
-                                    <p className="text-lg font-semibold">Your data has been successfully submitted!</p>
+                                <div className="p-6 bg-white border-2 border-purple rounded-lg flex flex-col">
+                                    <p className="text-lg font-semibold">Your registration for NAT&apos;CO is done successfully!</p>
                                     <button
                                         onClick={() => setIsSuccess(false)}
-                                        className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-md  align-center justify-center"
+                                        className="mt-4 px-4 py-2 bg-purple-700 text-white bg-purple rounded-md  align-center justify-center"
                                     >
                                         Close
                                     </button>
@@ -636,11 +636,11 @@ red-500 text-sm">{errors.allergies.message}</p>}
 
                         {errorMessage && (
                             <div className="fixed inset-0 top-0 left-0 right-0 bottom-0 flex items-center justify-center  z-50">
-                                <div className="p-6 bg-white border-2 border-pink-300 rounded-lg">
-                                    <p className="text-lg font-semibold text-red-600">{errorMessage}</p>
+                                <div className="p-6 bg-white border-2 border-purple rounded-lg">
+                                    <p className="text-lg font-semibold text-red-600">Please double check all fields are filled correctly!</p>
                                     <button
                                         onClick={() => setErrorMessage('')}
-                                        className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-md"
+                                        className="mt-4 px-4 py-2 bg-purple-700 bg-purple text-white rounded-md"
                                     >
                                         Close
                                     </button>
@@ -653,7 +653,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className={`px-6 py-3 text-white bg-pink-500 rounded-md ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`px-6 py-3 text-white bg-purple rounded-md ${isLoading ? 'opacity-20 cursor-not-allowed' : ''}`}
                             >
                                 {isLoading ? 'Submitting...' : 'Submit'}
                             </button>

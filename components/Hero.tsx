@@ -128,20 +128,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-
-      {/* SVG Logo (Hidden on tablet and mobile) */}
-      <div
-        ref={logoRef}
-        className="hidden lg:block fixed bottom-[-17%] right-[-13%] z-10 -rotate-30 pointer-events-none"
-      >
-        <Image
-          src="/svg-carthage.svg"
-          alt="NatCo Logo"
-          width={500}
-          height={500}
-          className="object-contain invert"
-        />
-      </div>
     </>
   );
 }
