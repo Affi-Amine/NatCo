@@ -653,7 +653,7 @@ red-500 text-sm">{errors.allergies.message}</p>}
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className={`px-6 py-3 text-white bg-purple rounded-md ${isLoading ? 'opacity-20 cursor-not-allowed' : ''}`}
+                                className={`px-6 py-3 text-white bg-purple rounded-md ${isLoading ? 'bg-purple-700 cursor-not-allowed' : ''}`}
                             >
                                 {isLoading ? 'Submitting...' : 'Submit'}
                             </button>
