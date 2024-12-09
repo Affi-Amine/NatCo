@@ -103,7 +103,7 @@ const ocTeam = [
       quote: "Certified Red Flag",
       name: "Maynaaa",
       designation: "IMPOSTER",
-      src: "/oc/i16.jpg",
+      src: "/oc/i16.JPG",
     },
 ];
 

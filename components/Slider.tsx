@@ -120,8 +120,8 @@ export default function Slider(): JSX.Element {
                         />
                         <div className={styles.copy}>
                             <h1>Village Fiesta</h1>
-                            <p className={`text-white text-center ${poppins.className}`}>
-                                EA Celebration of Unity in Diversity. Join us for Village Fiesta, a vibrant cultural exchange where you have the chance to represent your home states through traditional food, clothing, music, and more! Celebrate the richness of our heritage, share unique traditions, and enjoy the beauty of diversity in one unforgettable party. Oh, and let&apos;s just say... there&apos;s a special musical surprise waiting to make the night even more magical. You won&apos;t want to miss it!
+                            <p className={`text-white text-center text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed sm:leading-normal max-w-3xl mx-auto px-4 ${poppins.className}`}>
+                            Showcase your  state&apos;s culture through traditional food, clothing, music, and more .Celebrate diversity and enjoy a special musical surprise for an unforgettable night!
                             </p>
                         </div>
                     </div>
@@ -136,8 +136,8 @@ export default function Slider(): JSX.Element {
                         />
                         <div className={styles.copy}>
                             <h1>MCP Election</h1>
-                            <p className={`text-white text-center ${poppins.className}`}>
-                                The election of the National President is a highlight of the conference, where the future leader of AIESEC in Tunisia is chosen. This event represents leadership, vision, and a deep commitment to the organization&apos;s mission.
+                            <p className={`text-white text-center text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed sm:leading-normal max-w-3xl mx-auto px-4 ${poppins.className}`}>
+                            MCP Election: The election of the National President is a highlight of the conference, where the future leader of AIESEC in Tunisia is chosen.
                             </p>
                         </div>
                     </div>
@@ -152,8 +152,8 @@ export default function Slider(): JSX.Element {
                         />
                         <div className={styles.copy}>
                             <h1>Career Fair</h1>
-                            <p className={`text-white text-center ${poppins.className}`}>
-                                Career Fair 2.0, part of AIESEC&apos;s biggest national conference in Tunisia, is the ultimate platform to connect with top companies, discover career opportunities, and sharpen your skills. With keynotes, networking, panels, and hands-on workshops, it&apos;s your chance to kickstart your future. Don&apos;t miss it!
+                            <p className={`text-white text-center text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed sm:leading-normal max-w-3xl mx-auto px-4 ${poppins.className}`}>
+                            Career Fair 2.0, part of AIESEC Tunisia&apos;s biggest national conference, connects you with top companies, career opportunities, and skill-building workshops. Join us for keynotes, networking, and panels to kickstart your future!
                             </p>
                         </div>
                     </div>
@@ -168,7 +168,7 @@ export default function Slider(): JSX.Element {
                         />
                         <div className={styles.copy}>
                             <h1>Gala Night</h1>
-                            <p className={`text-white text-center ${poppins.className}`}>
+                            <p className={`text-white text-center text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed sm:leading-normal max-w-3xl mx-auto px-4 ${poppins.className}`}>
                                 An elegant evening celebrating the achievements within the AIESEC community, providing a relaxed setting for networking and recognizing accomplishments.
                             </p>
                         </div>
