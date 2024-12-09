@@ -150,6 +150,19 @@ export default function RegistrationForm() {
                     </h1>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                        <p className="text-center">
+                            🎉 READY TO BE PART OF SOMETHING BIGGER? 🎉<br />
+                            <br />
+                            The countdown is on—Nat&apos;Co 2K24 is here! 🚀 Four days of excitement, purpose, and connection await. Join passionate changemakers in an electrifying experience that will inspire and empower you.<br />
+                            <br />
+                            Secure your spot now by filling out the Nat&apos;Co 2K24 registration form. Don&apos;t miss this unforgettable journey! 🌟<br />
+                            <br />
+                            *The conference will be on the 26/27/28/29 of December 2k24 and will take place in Soviva Hotel.<br />
+                            *Conference fees: 180DT<br />
+                            Single room: +50DT per night<br />
+                            <b>WARNING!!</b><br />
+                            The conference fees will be charged in case of cancellation.
+                        </p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                             <div className="space-y-2">
                                 <Label className="text-black font-medium">What is your LC?</Label>
@@ -329,6 +342,35 @@ export default function RegistrationForm() {
                                 />
                                 {errors.position && <p className="text-red-500 text-sm">{errors.position.message}</p>}
                             </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-black font-medium">
+                                What is your gender?
+                            </Label>
+                            <div className="flex items-center space-x-4">
+                                <label className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        value="male"
+                                        {...register("gender")}
+                                        className="border-2 border-purple focus:ring-0 checked:bg-black checked:border-black"
+                                    />
+                                    <span>Male</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        value="female"
+                                        {...register("gender")}
+                                        className="border-2 border-purple focus:ring-0 checked:bg-black checked:border-black"
+                                    />
+                                    <span>Female</span>
+                                </label>
+                            </div>
+                            {errors.gender && (
+                                <p className="text-red-500 text-sm">{errors.gender.message}</p>
+                            )}
                         </div>
 
                         <div className="space-y-2">

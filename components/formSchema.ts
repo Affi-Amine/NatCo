@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import * as z from "zod";
 
 export const formSchema = z.object({
   lc: z.string().min(1, { message: "LC is required" }),
@@ -17,8 +17,8 @@ export const formSchema = z.object({
   allergiesDetails: z.string().optional(),
   chronicIllness: z.enum(["yes", "no"]),
   expectations: z.string().min(1, { message: "Expectations are required" }),
-  agreeToIndemnity: z.boolean().refine(val => val === true, {
-    message: "You must agree to the Indemnity Conditions"
+  agreeToIndemnity: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the Indemnity Conditions",
   }),
   digitalSignature: z.string().min(1, { message: "Digital signature is required" }),
   planetChoice: z.string().min(1, { message: "Planet choice is required" }),
@@ -53,6 +53,7 @@ export const formSchema = z.object({
   ]),
   hasBusinessIdea: z.enum(["yes", "no"]).optional(),
   businessIdeaDetails: z.string().optional(),
+  gender: z.enum(["male", "female"], { message: "Gender is required" }),
 });
 
 export type FormData = z.infer<typeof formSchema>;

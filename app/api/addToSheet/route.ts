@@ -106,6 +106,7 @@ export async function POST(req: Request) {
       signatureLink,
       data.keyArea || "",
       data.position || "",
+      data.gender || "",
       data.allergies || "",
       data.allergiesDetails || "",
       data.chronicIllness || "",

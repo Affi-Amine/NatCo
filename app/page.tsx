@@ -17,7 +17,7 @@ const ocTeam = [
   },
   {
     quote: "",
-    name: "ondher Hakim",
+    name: "Mondher Hakim",
     designation: "OCVP MKT",
     src: "/oc/i2.jpg",
   },
@@ -101,9 +101,15 @@ const ocTeam = [
     },
     {
       quote: "",
+      name: "Badis Kaouel",
+      designation: "OC MKT",
+      src: "/oc/i16.jpg",
+    },
+    {
+      quote: "",
       name: "Maynaaa",
       designation: "IMPOSTER",
-      src: "/oc/i16.JPG",
+      src: "/oc/i17.JPG",
     },
 ];
 
