@@ -111,7 +111,7 @@ export default function Slider(): JSX.Element {
                 <div className={styles.slider}>
                     <div className={styles.card}>
                         <Image
-                            src="/assets/i4.jpg"
+                            src="/optimImages/villageFiesta.jpg"
                             alt="Image 4"
                             width={500}
                             height={300}
