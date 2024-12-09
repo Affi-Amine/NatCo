@@ -179,30 +179,17 @@ const Menu: React.FC = () => {
         <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end z-10 text-sm font-medium">
           {/* Left Footer */}
           <div className="flex flex-col gap-2">
-            <a href="#" className="text-black uppercase">
-              X &#8599;
-            </a>
-            <a href="#" className="text-black uppercase">
+            <a href="https://www.instagram.com/natco2k24/profilecard/?igsh=d3cxcW83OHF1Yjl5" className="text-black uppercase">
               Instagram &#8599;
-            </a>
-            <a href="#" className="text-black uppercase">
-              Facebook &#8599;
-            </a>
-            <a href="#" className="text-black uppercase">
-              LinkedIn &#8599;
             </a>
           </div>
 
           {/* Center Footer */}
           <div className="flex flex-col gap-1 text-center">
-            <p className="text-black">info@natco.com</p>
+            <p className="text-black">hichrizaineb22@gmail.com</p>
             <p className="text-black">+216 28108923</p>
           </div>
 
-          {/* Right Footer */}
-          <div className="text-right">
-            <p className="uppercase text-black">View Showreel.</p>
-          </div>
         </div>
       </div>
     </div>

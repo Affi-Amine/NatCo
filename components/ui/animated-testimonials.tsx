@@ -122,7 +122,7 @@ export const AnimatedTestimonials = ({
                                 ease: "easeInOut",
                             }}
                         >
-                            <h3 className={`${bubblegum.className} text-2xl font-bold text-white`}>
+                            <h3 className={`${bubblegum.className} text-4xl font-bold text-white md:pt-[100px]`}>
                                 {testimonials[active].name}
                             </h3>
                             <p className="text-sm text-gray-500 dark:text-neutral-500">
