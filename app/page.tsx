@@ -66,19 +66,19 @@ const ocTeam = [
     {
       quote: "",
       name: "Ines Hamdoun",
-      designation: "OC LOG",
+      designation: "OC MKT",
       src: "/oc/i10.jpg",
     },
     {
       quote: "",
       name: "Yassin Skik",
-      designation: "OC LOG",
+      designation: "OC DXP",
       src: "/oc/i11.jpg",
     },
     {
       quote: "",
       name: "Ahmed Frikha",
-      designation: "OC LOG",
+      designation: "OC ER",
       src: "/oc/i12.jpg",
     },
     {
@@ -96,7 +96,7 @@ const ocTeam = [
     {
       quote: "",
       name: "Khairi Ayed",
-      designation: "OC LOG",
+      designation: "OC ER",
       src: "/oc/i15.jpg",
     },
     {
