@@ -186,10 +186,9 @@ const Menu: React.FC = () => {
 
           {/* Center Footer */}
           <div className="flex flex-col gap-1 text-center">
-            <p className="text-black">hichrizaineb22@gmail.com</p>
+            <p className="text-black">affi.amin.work@gmail.com</p>
             <p className="text-black">+216 28108923</p>
           </div>
-
         </div>
       </div>
     </div>

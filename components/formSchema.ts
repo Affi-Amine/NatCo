@@ -10,7 +10,7 @@ export const formSchema = z.object({
   emergencyNumber: z.string().min(1, { message: "Emergency number is required" }),
   dateOfBirth: z.string().min(1, { message: "Date of birth is required" }),
   photo: z.any(),
-  cv: z.any(),
+  cv: z.any().optional(),
   keyArea: z.string().min(1, { message: "Key Area is required" }),
   position: z.string().min(1, { message: "Position is required" }),
   allergies: z.enum(["yes", "no"]),
@@ -26,6 +26,7 @@ export const formSchema = z.object({
   conferenceLookingForward: z.string().min(1, { message: "This field is required" }),
   conferenceExpectations: z.string().min(1, { message: "This field is required" }),
   state: z.enum([
+    "Sidi Bouzid",
     "Tunis",
     "Ariana",
     "Ben Arous",
@@ -41,7 +42,6 @@ export const formSchema = z.object({
     "Monastir",
     "Mahdia",
     "Kasserine",
-    "Sidi Bouzid",
     "Kairouan",
     "Gafsa",
     "Sfax",
@@ -54,6 +54,7 @@ export const formSchema = z.object({
   hasBusinessIdea: z.enum(["yes", "no"]).optional(),
   businessIdeaDetails: z.string().optional(),
   gender: z.enum(["male", "female"], { message: "Gender is required" }),
+  singleRoom: z.enum(["yes", "no"], { message: "Please select Yes or No for Single Room" }),
 });
 
 export type FormData = z.infer<typeof formSchema>;

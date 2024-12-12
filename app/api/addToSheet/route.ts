@@ -118,6 +118,7 @@ export async function POST(req: Request) {
       data.conferenceExpectations || "", // New: Expectations from the chair
       data.hasBusinessIdea || "", // New: "Yes" or "No" answer
       data.businessIdeaDetails || "", // New: Details about the business idea
+      data.singleRoom || ""
     ];
 
     // Insert into Google Sheets

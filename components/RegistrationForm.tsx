@@ -281,7 +281,7 @@ export default function RegistrationForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-black font-medium">Upload Your CV</Label>
+                                <Label className="text-black font-medium">Upload Your CV &#40;Not Required&#41;</Label>
                                 <div className="border-2 border-purple border-dashed rounded-lg p-4 text-center">
                                     <label htmlFor="cv-upload" className="cursor-pointer">
                                         <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
@@ -383,6 +383,7 @@ export default function RegistrationForm() {
                                     Select your state
                                 </option>
                                 {[
+                                    "Sidi Bouzid",
                                     "Tunis",
                                     "Ariana",
                                     "Ben Arous",
@@ -398,7 +399,6 @@ export default function RegistrationForm() {
                                     "Monastir",
                                     "Mahdia",
                                     "Kasserine",
-                                    "Sidi Bouzid",
                                     "Kairouan",
                                     "Gafsa",
                                     "Sfax",
@@ -470,21 +470,52 @@ red-500 text-sm">{errors.allergies.message}</p>}
                                         <div className="flex items-center space-x-2">
                                             <RadioGroupItem
                                                 value="yes"
-                                                className="border-2 border-purple text-purple-700"
+                                                className="border-2 border-purple focus:ring-purple-700"
                                             />
-                                            <Label>Yes</Label>
+                                            <Label className="text-black">Yes</Label>
                                         </div>
                                         <div className="flex items-center space-x-2">
                                             <RadioGroupItem
                                                 value="no"
-                                                className="border-2 border-purple text-purple-700"
+                                                className="border-2 border-purple focus:ring-purple-700"
                                             />
-                                            <Label>No</Label>
+                                            <Label className="text-black">No</Label>
                                         </div>
                                     </RadioGroup>
                                 )}
                             />
-                            {errors.chronicIllness && <p className="text-red-500 text-sm">{errors.chronicIllness.message}</p>}
+                            {errors.chronicIllness && (
+                                <p className="text-red-500 text-sm">{errors.chronicIllness.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-black font-medium">
+                                Do you want a Single Room?
+                            </Label>
+                            <div className="flex items-center space-x-4">
+                                <label className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        value="yes"
+                                        {...register("singleRoom", { required: true })}
+                                        className="border-2 border-purple text-black focus:ring-purple-700"
+                                    />
+                                    <span>Yes</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        value="no"
+                                        {...register("singleRoom", { required: true })}
+                                        className="border-2 border-purple text-black focus:ring-purple-700"
+                                    />
+                                    <span>No</span>
+                                </label>
+                            </div>
+                            {errors.singleRoom && (
+                                <p className="text-red-500 text-sm">{errors.singleRoom.message}</p>
+                            )}
                         </div>
 
                         <div className="space-y-2">
