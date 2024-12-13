@@ -15,7 +15,7 @@ export default function RegistrationClosed() {
             سنعود بعد قليل
           </p>
           <p className="mt-4 text-lg text-gray-600">
-            We'll be back soon
+            We&apos;ll be back soon
           </p>
         </CardContent>
       </Card>
